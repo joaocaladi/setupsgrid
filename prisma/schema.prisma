@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Setup {
+  id           String      @id @default(cuid())
+  titulo       String
+  descricao    String?
+  imagemUrl    String
+  videoUrl     String?
+  isVideo      Boolean     @default(false)
+  autor        String?
+  fonte        String?     // Instagram, Twitter, etc
+  fonteUrl     String?
+  destaque     Boolean     @default(false)
+  visualizacoes Int        @default(0)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  categorias   Categoria[] @relation("CategoriaToSetup")
+  produtos     Produto[]
+}
+
+model Categoria {
+  id        String   @id @default(cuid())
+  nome      String   @unique
+  slug      String   @unique
+  descricao String?
+  cor       String?  // Cor hex para o badge
+  icone     String?  // Nome do ícone lucide-react
+  ordem     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  setups    Setup[]  @relation("CategoriaToSetup")
+}
+
+model Produto {
+  id         String   @id @default(cuid())
+  nome       String
+  descricao  String?
+  categoria  String   // Ex: "Monitor", "Teclado", "Mesa"
+  preco      Float?
+  moeda      String   @default("BRL")
+  imagemUrl  String?
+  linkCompra String?
+  loja       String?  // Ex: "Amazon", "Kabum", "ANMA Setups"
+  destaque   Boolean  @default(false) // Produto principal do setup
+  ordem      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  setupId    String
+  setup      Setup    @relation(fields: [setupId], references: [id], onDelete: Cascade)
+}
