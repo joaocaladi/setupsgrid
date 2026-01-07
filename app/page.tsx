@@ -48,25 +48,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section - Apple style */}
-        <section className="section-padding bg-[var(--background-tertiary)]">
-          <div className="container-text text-center">
-            <h2 className="text-h2 text-[var(--text-primary)] mb-4">
-              Monte seu setup ideal.
-            </h2>
-            <p className="text-body-large text-[var(--text-secondary)] mb-8 max-w-[600px] mx-auto">
-              Encontre inspiração, descubra produtos e crie o workspace perfeito para você.
-            </p>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
-              <button className="btn-primary">
-                Explorar setups
-              </button>
-              <button className="link-arrow">
-                Saiba mais
-              </button>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />
