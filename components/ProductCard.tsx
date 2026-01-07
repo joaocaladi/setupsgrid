@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 export function ProductCard({ produto }: ProductCardProps) {
   return (
-    <div className="flex gap-4 p-4 bg-[var(--background-secondary)] rounded-2xl transition-all duration-300 hover:bg-[var(--background-tertiary)]">
+    <div className="flex gap-5 p-5 bg-[var(--background-secondary)] rounded-2xl transition-all duration-300 hover:bg-[var(--background-tertiary)]">
       {/* Product image */}
       {produto.imagemUrl ? (
         <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-[var(--background)]">

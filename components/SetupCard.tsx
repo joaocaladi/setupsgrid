@@ -76,7 +76,7 @@ export function SetupCard({ setup, index = 0 }: SetupCardProps) {
           </div>
 
           {/* Bottom info bar - minimal */}
-          <div className="px-4 py-3">
+          <div className="px-4 py-4">
             <p className="text-[13px] text-[var(--text-secondary)] line-clamp-1">
               {setup.produtos.length} produtos
               {setup.fonte && ` · ${setup.fonte}`}

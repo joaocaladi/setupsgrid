@@ -88,7 +88,7 @@ export function Header({ categoriaAtiva }: HeaderProps) {
       {/* Mobile categories - horizontal scroll */}
       <div className="md:hidden border-t border-[var(--border)]">
         <div className="container-wide py-3 overflow-x-auto hide-scrollbar">
-          <div className="flex items-center gap-4 min-w-max">
+          <div className="flex items-center gap-6 min-w-max">
             <Link
               href="/"
               className={cn(
