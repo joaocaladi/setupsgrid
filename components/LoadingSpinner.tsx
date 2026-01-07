@@ -24,12 +24,15 @@ export function LoadingSpinner({ className, size = "md" }: LoadingSpinnerProps) 
   );
 }
 
-// Skeleton components for loading states
+// Skeleton components for loading states - Apple style
 export function SetupCardSkeleton() {
   return (
     <div className="masonry-item">
-      <div className="skeleton rounded-xl overflow-hidden">
+      <div className="bg-[var(--background-tertiary)] rounded-2xl overflow-hidden animate-pulse">
         <div className="aspect-[3/4]" />
+        <div className="px-4 py-3">
+          <div className="h-3 w-2/3 bg-[var(--border)] rounded-full" />
+        </div>
       </div>
     </div>
   );
@@ -47,12 +50,12 @@ export function SetupGridSkeleton({ count = 8 }: { count?: number }) {
 
 export function ProductCardSkeleton() {
   return (
-    <div className="flex gap-4 p-4 bg-[var(--card)] rounded-xl border border-[var(--border)]">
-      <div className="skeleton w-20 h-20 rounded-lg flex-shrink-0" />
+    <div className="flex gap-4 p-4 bg-[var(--background-secondary)] rounded-2xl animate-pulse">
+      <div className="w-20 h-20 rounded-xl flex-shrink-0 bg-[var(--background-tertiary)]" />
       <div className="flex-1 space-y-2">
-        <div className="skeleton h-4 w-16 rounded" />
-        <div className="skeleton h-5 w-3/4 rounded" />
-        <div className="skeleton h-4 w-1/2 rounded" />
+        <div className="h-3 w-16 bg-[var(--border)] rounded-full" />
+        <div className="h-4 w-3/4 bg-[var(--border)] rounded-full" />
+        <div className="h-3 w-1/2 bg-[var(--border)] rounded-full" />
       </div>
     </div>
   );

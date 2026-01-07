@@ -1,140 +1,97 @@
 import Link from "next/link";
-import { Instagram, Twitter, Github } from "lucide-react";
+
+const categorias = [
+  { nome: "Minimalista", slug: "minimalista" },
+  { nome: "Gamer", slug: "gamer" },
+  { nome: "Trabalho", slug: "trabalho" },
+  { nome: "Moderno", slug: "moderno" },
+];
+
+const links = [
+  { nome: "Sobre", href: "#" },
+  { nome: "Contato", href: "#" },
+  { nome: "Privacidade", href: "#" },
+  { nome: "Termos", href: "#" },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--background-secondary)]">
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <Link href="/" className="inline-block">
-              <h2 className="text-xl font-bold">
-                <span className="gradient-text">Setups</span>
-                <span className="text-[var(--text-primary)]">Grid</span>
-              </h2>
-            </Link>
-            <p className="mt-3 text-sm text-[var(--text-secondary)] max-w-md">
-              Descubra setups incríveis e encontre os produtos perfeitos para
-              montar seu workspace dos sonhos. Inspiração para todos os estilos.
-            </p>
-            {/* Social links */}
-            <div className="flex items-center gap-4 mt-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Links */}
+    <footer className="bg-[var(--background-tertiary)] border-t border-[var(--border)]">
+      {/* Main footer content */}
+      <div className="container-wide py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {/* Explorar */}
           <div>
-            <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-3">
+            <h3 className="text-xs font-semibold text-[var(--text-primary)] mb-4">
               Explorar
             </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/categoria/minimalista"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Minimalista
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categoria/gamer"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Gamer
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categoria/trabalho"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Trabalho
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categoria/moderno"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Moderno
-                </Link>
-              </li>
+            <ul className="space-y-3">
+              {categorias.map((cat) => (
+                <li key={cat.slug}>
+                  <Link
+                    href={`/categoria/${cat.slug}`}
+                    className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                  >
+                    {cat.nome}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* More links */}
+          {/* Sobre */}
           <div>
-            <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-3">
-              Sobre
+            <h3 className="text-xs font-semibold text-[var(--text-primary)] mb-4">
+              SetupsGrid
             </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Sobre nós
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Contato
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Política de Privacidade
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
-                >
-                  Termos de Uso
-                </Link>
-              </li>
+            <ul className="space-y-3">
+              {links.map((link) => (
+                <li key={link.nome}>
+                  <Link
+                    href={link.href}
+                    className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                  >
+                    {link.nome}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-        </div>
 
-        {/* Copyright */}
-        <div className="mt-10 pt-6 border-t border-[var(--border)]">
-          <p className="text-xs text-[var(--text-muted)] text-center">
-            © {new Date().getFullYear()} SetupsGrid. Todos os direitos reservados.
-          </p>
+          {/* Espaço vazio em desktop */}
+          <div className="hidden md:block" />
+          <div className="hidden md:block" />
+        </div>
+      </div>
+
+      {/* Bottom bar - Apple style */}
+      <div className="border-t border-[var(--border)]">
+        <div className="container-wide py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-[var(--text-secondary)]">
+              Copyright © {new Date().getFullYear()} SetupsGrid. Todos os direitos reservados.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link
+                href="#"
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                Privacidade
+              </Link>
+              <Link
+                href="#"
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                Termos
+              </Link>
+              <Link
+                href="#"
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                Mapa do site
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,31 +1,10 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { Header, Footer, SetupGrid } from "@/components";
 import { getCategoriaBySlug } from "@/lib/data";
 import type { SetupWithRelations } from "@/types";
 import type { Metadata } from "next";
-import type { LucideProps } from "lucide-react";
-import {
-  Sparkles,
-  Monitor,
-  Gamepad2,
-  Briefcase,
-  Palette,
-  Moon,
-  Sun,
-  TreePine,
-} from "lucide-react";
-
-// Mapeamento de ícones por slug
-const iconMap: Record<string, React.FC<LucideProps>> = {
-  minimalista: Sparkles,
-  moderno: Monitor,
-  gamer: Gamepad2,
-  trabalho: Briefcase,
-  estiloso: Palette,
-  escuro: Moon,
-  claro: Sun,
-  amadeirado: TreePine,
-};
+import { ChevronLeft } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -57,62 +36,94 @@ export default async function CategoriaPage({ params }: PageProps) {
     notFound();
   }
 
-  const Icon = iconMap[slug] || Sparkles;
-
-  // Transform setups to include required relations
   const setups: SetupWithRelations[] = categoria.setups;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[var(--background)]">
       <Header categoriaAtiva={slug} />
 
       <main className="flex-1">
-        {/* Category Header */}
-        <section className="py-12 sm:py-16 px-4">
-          <div className="max-w-[1800px] mx-auto">
-            <div className="flex items-center gap-4 mb-4">
-              <div
-                className="p-3 rounded-xl"
-                style={{
-                  backgroundColor: categoria.cor
-                    ? `${categoria.cor}20`
-                    : "var(--accent-light)",
-                }}
-              >
-                <Icon
-                  className="h-8 w-8"
-                  style={{ color: categoria.cor || "var(--accent)" }}
-                />
-              </div>
-              <div>
-                <h1 className="text-3xl sm:text-4xl font-serif tracking-tight">
-                  {categoria.nome}
-                </h1>
-                <p className="text-sm text-[var(--text-muted)]">
-                  {setups.length} {setups.length === 1 ? "setup" : "setups"}
-                </p>
-              </div>
-            </div>
+        {/* Category Header - Apple style */}
+        <section className="section-padding">
+          <div className="container-text">
+            {/* Back link */}
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-[var(--accent)] hover:underline text-sm mb-8"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              Todos os setups
+            </Link>
 
-            {categoria.descricao && (
-              <p className="text-lg text-[var(--text-secondary)] max-w-2xl">
+            {/* Title */}
+            <h1 className="text-display text-[var(--text-primary)] mb-4">
+              {categoria.nome}.
+            </h1>
+
+            {/* Description */}
+            {categoria.descricao ? (
+              <p className="text-body-large text-[var(--text-secondary)] max-w-[680px]">
                 {categoria.descricao}
+              </p>
+            ) : (
+              <p className="text-body-large text-[var(--text-secondary)] max-w-[680px]">
+                Explore nossa seleção de setups {categoria.nome.toLowerCase()} e encontre
+                inspiração para o seu workspace.
               </p>
             )}
           </div>
         </section>
 
         {/* Setups Grid */}
-        <section className="px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="max-w-[1800px] mx-auto">
-            <SetupGrid setups={setups} />
+        <section className="pb-20 md:pb-32">
+          <div className="container-wide">
+            {/* Section header */}
+            <div className="flex items-baseline justify-between mb-8">
+              <h2 className="text-h3 text-[var(--text-primary)]">
+                Setups {categoria.nome.toLowerCase()}
+              </h2>
+              <span className="text-caption">
+                {setups.length} {setups.length === 1 ? "setup" : "setups"}
+              </span>
+            </div>
 
-            {/* Load more button */}
-            {setups.length >= 12 && (
-              <div className="mt-12 text-center">
-                <button className="btn-secondary">Carregar mais</button>
+            {/* Grid */}
+            {setups.length > 0 ? (
+              <SetupGrid setups={setups} />
+            ) : (
+              <div className="text-center py-20">
+                <p className="text-body text-[var(--text-secondary)]">
+                  Nenhum setup encontrado nesta categoria.
+                </p>
+                <Link href="/" className="btn-primary mt-6 inline-block">
+                  Ver todos os setups
+                </Link>
               </div>
             )}
+
+            {/* Load more button - Apple style */}
+            {setups.length >= 12 && (
+              <div className="mt-16 text-center">
+                <button className="link-arrow">
+                  Ver mais setups
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="section-padding bg-[var(--background-tertiary)]">
+          <div className="container-text text-center">
+            <h2 className="text-h2 text-[var(--text-primary)] mb-4">
+              Explore outras categorias.
+            </h2>
+            <p className="text-body-large text-[var(--text-secondary)] mb-8 max-w-[600px] mx-auto">
+              Descubra mais estilos e encontre o setup perfeito para você.
+            </p>
+            <Link href="/" className="btn-primary">
+              Ver todas as categorias
+            </Link>
           </div>
         </section>
       </main>
