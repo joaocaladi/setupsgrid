@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "./ThemeProvider";
 
 // Categorias simplificadas (sem ícones para estilo Apple mais limpo)
 const categorias = [
@@ -20,6 +22,8 @@ interface HeaderProps {
 }
 
 export function Header({ categoriaAtiva }: HeaderProps) {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <header className="sticky top-0 z-50 glass border-b border-[var(--border)]">
       <div className="container-wide">
@@ -61,8 +65,22 @@ export function Header({ categoriaAtiva }: HeaderProps) {
             ))}
           </div>
 
-          {/* Right side - Search icon */}
-          <div className="flex items-center gap-4">
+          {/* Right side - Theme toggle and Search */}
+          <div className="flex items-center gap-3">
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--background-tertiary)] transition-all duration-300"
+              aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+            >
+              {theme === "light" ? (
+                <Moon className="h-[18px] w-[18px]" />
+              ) : (
+                <Sun className="h-[18px] w-[18px]" />
+              )}
+            </button>
+
+            {/* Search */}
             <button
               className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               aria-label="Buscar"

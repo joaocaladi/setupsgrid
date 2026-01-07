@@ -13,7 +13,7 @@ export default async function HomePage() {
         <section className="section-padding text-center">
           <div className="container-text">
             <h1 className="text-display text-[var(--text-primary)] mb-6">
-              Inspiração para seu Setup.
+              Inspiração.
             </h1>
             <p className="text-body-large text-[var(--text-secondary)] max-w-[680px] mx-auto">
               Descubra setups incríveis e encontre os produtos perfeitos.
