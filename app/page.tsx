@@ -16,8 +16,7 @@ export default async function HomePage() {
               Inspiração para seu Setup.
             </h1>
             <p className="text-body-large text-[var(--text-secondary)] max-w-[680px] mx-auto">
-              Descubra setups incríveis e encontre os produtos perfeitos para
-              montar seu workspace dos sonhos.
+              Descubra setups incríveis e encontre os produtos perfeitos.
             </p>
           </div>
         </section>

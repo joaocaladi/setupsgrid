@@ -1045,7 +1045,114 @@ export const mockSetups: SetupWithRelations[] = [
       },
     ],
   },
+  // Setups adicionais para visualização
+  ...generateAdditionalSetups(),
 ];
+
+// Função para gerar setups adicionais
+function generateAdditionalSetups(): SetupWithRelations[] {
+  const setupTemplates = [
+    { titulo: "Setup Neon Purple", img: "photo-1600585154340-be6161a56a0c", cats: [5, 2, 4] },
+    { titulo: "Workspace Escandinavo", img: "photo-1618005198919-d3d4b5a92ead", cats: [0, 6, 7] },
+    { titulo: "Gaming Corner RGB", img: "photo-1612287230202-1ff1d85d1bdf", cats: [2, 5, 1] },
+    { titulo: "Home Office Elegante", img: "photo-1595846519845-68e298c2edd8", cats: [3, 0, 6] },
+    { titulo: "Setup Ultrawide Imersivo", img: "photo-1547082299-de196ea013d6", cats: [1, 3, 5] },
+    { titulo: "Estação de Trabalho Pro", img: "photo-1593642634367-d91a135587b5", cats: [3, 1, 0] },
+    { titulo: "Setup Cozy com Plantas", img: "photo-1585412459212-9ca2cc89f52f", cats: [7, 4, 6] },
+    { titulo: "Battlestation Competitivo", img: "photo-1598550476439-6847785fcea6", cats: [2, 5, 1] },
+    { titulo: "Workspace Minimalista Zen", img: "photo-1600494603989-9650cf6ddd3d", cats: [0, 6, 3] },
+    { titulo: "Setup Dual Monitor Pro", img: "photo-1587831990711-23ca6441447b", cats: [3, 1, 5] },
+    { titulo: "Gaming Room Completo", img: "photo-1593640408182-31c70c8268f5", cats: [2, 5, 4] },
+    { titulo: "Home Studio Musical", img: "photo-1598488035139-bdbb2231ce04", cats: [4, 5, 3] },
+    { titulo: "Setup All Apple", img: "photo-1611532736597-de2d4265fba3", cats: [0, 1, 6] },
+    { titulo: "Workspace Criativo Colorido", img: "photo-1618221195710-dd6b41faaea6", cats: [4, 6, 3] },
+    { titulo: "Setup Produtividade Máxima", img: "photo-1593642632559-0c6d3fc62b89", cats: [3, 0, 1] },
+    { titulo: "Corner Gaming Compacto", img: "photo-1542744173-8e7e53415bb0", cats: [2, 0, 5] },
+    { titulo: "Escritório em Casa Luxo", img: "photo-1600585154526-990dced4db0d", cats: [4, 3, 6] },
+    { titulo: "Setup Developer Escuro", img: "photo-1537498425277-c283d32ef9db", cats: [5, 3, 1] },
+    { titulo: "Workspace com Vista", img: "photo-1606836591695-4d58a73eba1e", cats: [6, 0, 3] },
+    { titulo: "Gaming Setup RGB Max", img: "photo-1600861194942-f883de0dfe96", cats: [2, 5, 4] },
+    { titulo: "Setup Triple Monitor", img: "photo-1593640495253-23196b27a87f", cats: [3, 1, 2] },
+    { titulo: "Home Office Aconchegante", img: "photo-1618221381711-42ca8ab6e908", cats: [7, 6, 3] },
+    { titulo: "Estação Gamer Streamer", img: "photo-1603302576837-37561b2e2302", cats: [2, 4, 5] },
+    { titulo: "Setup Clean Aesthetic", img: "photo-1600566753190-17f0baa2a6c3", cats: [0, 6, 1] },
+    { titulo: "Workspace Industrial", img: "photo-1600607687939-ce8a6c25118c", cats: [4, 5, 7] },
+    { titulo: "Setup Portátil Nômade", img: "photo-1600880292203-757bb62b4baf", cats: [0, 3, 1] },
+    { titulo: "Gaming Den Épico", img: "photo-1605647540924-852290f6b0d5", cats: [2, 5, 4] },
+    { titulo: "Escritório Executivo", img: "photo-1600585154084-4e5fe7c39198", cats: [3, 4, 6] },
+    { titulo: "Setup Podcast Pro", img: "photo-1598550473359-433795503a0f", cats: [4, 5, 3] },
+    { titulo: "Corner Desk Compacto", img: "photo-1600508774634-4e11d34730e2", cats: [0, 3, 1] },
+    { titulo: "Setup Retro Moderno", img: "photo-1612287230202-1ff1d85d1bdf", cats: [4, 2, 1] },
+    { titulo: "Workspace Natural Light", img: "photo-1600210492486-724fe5c67fb0", cats: [6, 0, 7] },
+    { titulo: "Gaming Battlestation 2024", img: "photo-1593640408182-31c70c8268f5", cats: [2, 1, 5] },
+    { titulo: "Setup Freelancer", img: "photo-1600494603989-9650cf6ddd3d", cats: [3, 0, 6] },
+    { titulo: "Home Office Garden View", img: "photo-1600566752355-35792bedcfea", cats: [6, 7, 3] },
+    { titulo: "Setup Editor de Vídeo", img: "photo-1593640495390-11b80004afe9", cats: [3, 4, 1] },
+    { titulo: "Gaming Corner Aesthetic", img: "photo-1600861194942-f883de0dfe96", cats: [2, 4, 0] },
+    { titulo: "Workspace Boho Chic", img: "photo-1600210491369-e753d80a41f3", cats: [4, 7, 6] },
+    { titulo: "Setup Programador Senior", img: "photo-1537498425277-c283d32ef9db", cats: [3, 5, 1] },
+    { titulo: "Home Office Feminino", img: "photo-1600585154526-990dced4db0d", cats: [4, 6, 0] },
+    { titulo: "Setup Estudante Tech", img: "photo-1593642634367-d91a135587b5", cats: [0, 3, 1] },
+    { titulo: "Gaming Room Dark Mode", img: "photo-1616588589676-62b3bd4ff6d2", cats: [2, 5, 4] },
+    { titulo: "Escritório Criativo", img: "photo-1618221195710-dd6b41faaea6", cats: [4, 3, 6] },
+    { titulo: "Setup Day Trader", img: "photo-1587831990711-23ca6441447b", cats: [3, 1, 5] },
+    { titulo: "Workspace Artista Digital", img: "photo-1542744094-24638eff58bb", cats: [4, 6, 0] },
+    { titulo: "Setup Cyberpunk Vibes", img: "photo-1612287230202-1ff1d85d1bdf", cats: [5, 2, 4] },
+    { titulo: "Home Office Corporativo", img: "photo-1600585154340-be6161a56a0c", cats: [3, 1, 6] },
+    { titulo: "Setup Minimalist Black", img: "photo-1555099962-4199c345e5dd", cats: [0, 5, 1] },
+    { titulo: "Gaming Setup Console", img: "photo-1550745165-9bc0b252726f", cats: [2, 4, 5] },
+    { titulo: "Workspace Designer UX", img: "photo-1547082299-de196ea013d6", cats: [4, 3, 0] },
+  ];
+
+  const autores = [
+    "Gabriel Santos", "Mariana Costa", "Bruno Lima", "Carla Ribeiro", "Diego Martins",
+    "Fernanda Oliveira", "Henrique Silva", "Isabela Souza", "João Pedro", "Larissa Mendes",
+    "Mateus Alves", "Natália Ferreira", "Otávio Rocha", "Patrícia Campos", "Rafael Cardoso",
+    "Sabrina Dias", "Thiago Nunes", "Vanessa Gomes", "William Santos", "Yasmin Barros"
+  ];
+
+  const fontes = ["Instagram", "Twitter", "Pinterest", "Reddit", "Behance", "Dribbble", null];
+
+  return setupTemplates.map((template, index) => {
+    const setupId = `setup-${11 + index}`;
+    const autor = autores[index % autores.length];
+    const fonte = fontes[index % fontes.length];
+    const numProdutos = 3 + (index % 4);
+
+    return {
+      id: setupId,
+      titulo: template.titulo,
+      descricao: `Um setup incrível que combina estilo e funcionalidade para criar o ambiente perfeito de trabalho e lazer.`,
+      imagemUrl: `https://images.unsplash.com/${template.img}?w=800&q=80`,
+      videoUrl: null,
+      isVideo: index % 7 === 0,
+      autor,
+      fonte,
+      fonteUrl: fonte ? `https://${fonte.toLowerCase()}.com` : null,
+      destaque: index % 5 === 0,
+      visualizacoes: 300 + (index * 47) % 2000,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      categorias: template.cats.map(catIndex => mockCategorias[catIndex]),
+      produtos: Array.from({ length: numProdutos }, (_, prodIndex) => ({
+        id: `prod-${setupId}-${prodIndex + 1}`,
+        nome: ["Monitor 4K", "Teclado Mecânico", "Mouse Wireless", "Webcam HD", "Headset Pro", "Mesa Ajustável", "Cadeira Ergonômica"][prodIndex % 7],
+        descricao: prodIndex === 0 ? "Produto destaque do setup" : null,
+        categoria: ["Monitor", "Teclado", "Mouse", "Webcam", "Headphone", "Mesa", "Cadeira"][prodIndex % 7],
+        preco: [2499, 899, 599, 799, 1299, 1899, 2499][prodIndex % 7],
+        moeda: "BRL",
+        imagemUrl: null,
+        linkCompra: "https://amazon.com.br",
+        loja: ["Amazon", "Kabum", "Pichau", "Terabyte"][prodIndex % 4],
+        destaque: prodIndex === 0,
+        ordem: prodIndex,
+        setupId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })),
+    };
+  });
+}
 
 // Funções para obter dados mock
 export function getMockSetups(): SetupWithRelations[] {
