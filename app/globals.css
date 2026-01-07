@@ -427,6 +427,27 @@ body {
   color: #ffffff;
 }
 
+/* Back button overlay - inside images */
+.back-button-overlay {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-primary);
+}
+
+.back-button-overlay:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+[data-theme="dark"] .back-button-overlay {
+  background: rgba(30, 30, 30, 0.9);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .back-button-overlay:hover {
+  background: rgba(50, 50, 50, 0.95);
+}
+
 /* Section spacing */
 .section-padding {
   padding-top: var(--space-xl);

@@ -83,7 +83,7 @@ export default async function SetupPage({ params }: PageProps) {
           <div className="absolute top-6 left-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-1 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium text-[var(--text-primary)] hover:bg-white transition-colors shadow-sm"
+              className="inline-flex items-center gap-1 px-4 py-2 back-button-overlay rounded-full text-sm font-medium transition-colors shadow-sm"
             >
               <ChevronLeft className="h-4 w-4" />
               Voltar
