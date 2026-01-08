@@ -110,8 +110,20 @@ export default async function SetupPage({ params }: PageProps) {
                 </p>
               )}
 
+              {/* Products section */}
+              <div>
+                <h2 className="text-h3 text-[var(--text-primary)] mb-6">
+                  Produtos do setup
+                </h2>
+                <div className="space-y-4">
+                  {setup.produtos.map((produto) => (
+                    <ProductCard key={produto.id} produto={produto} />
+                  ))}
+                </div>
+              </div>
+
               {/* Summary stats */}
-              <div className="flex items-center gap-8 mb-8 pb-8 border-b border-[var(--border)]">
+              <div className="flex items-center gap-8 mt-8 pt-8 border-t border-[var(--border)]">
                 <div>
                   <p className="text-h2 text-[var(--text-primary)]">
                     {setup.produtos.length}
@@ -126,18 +138,6 @@ export default async function SetupPage({ params }: PageProps) {
                     <p className="text-caption">valor estimado</p>
                   </div>
                 )}
-              </div>
-
-              {/* Products section */}
-              <div>
-                <h2 className="text-h3 text-[var(--text-primary)] mb-6">
-                  Produtos do setup
-                </h2>
-                <div className="space-y-4">
-                  {setup.produtos.map((produto) => (
-                    <ProductCard key={produto.id} produto={produto} />
-                  ))}
-                </div>
               </div>
             </div>
           </div>
