@@ -8,7 +8,7 @@ interface ProductCardProps {
 
 export function ProductCard({ produto }: ProductCardProps) {
   return (
-    <div className="flex gap-5 p-5 bg-[var(--background-secondary)] rounded-2xl transition-all duration-300 hover:bg-[var(--background-tertiary)]">
+    <div className="relative flex gap-5 p-5 bg-[var(--background-secondary)] rounded-2xl transition-all duration-300 hover:bg-[var(--background-tertiary)]">
       {/* Product image */}
       <div className="relative w-40 h-40 rounded-xl flex-shrink-0 bg-[var(--background)] flex items-center justify-center overflow-hidden">
         {produto.imagemUrl ? (
@@ -43,33 +43,32 @@ export function ProductCard({ produto }: ProductCardProps) {
           </p>
         )}
 
-        {/* Price and buy link */}
-        <div className="flex items-center justify-between mt-2">
-          {produto.preco && (
-            <span className="text-[15px] font-semibold text-[var(--text-primary)]">
-              {formatPrice(produto.preco, produto.moeda)}
-            </span>
-          )}
-
-          <div className="flex flex-col items-end gap-1">
-            {produto.linkCompra && (
-              <a
-                href={produto.linkCompra}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-white bg-[#34C759] rounded-lg hover:bg-[#2DB84E] transition-colors"
-              >
-                Ir para loja &gt;
-              </a>
-            )}
-            {produto.loja && (
-              <span className="text-xs text-[var(--text-secondary)]">
-                Vendido por {produto.loja}
-              </span>
-            )}
-          </div>
-        </div>
+        {/* Price */}
+        {produto.preco && (
+          <span className="text-[15px] font-semibold text-[var(--text-primary)] mt-1 block">
+            {formatPrice(produto.preco, produto.moeda)}
+          </span>
+        )}
       </div>
+
+      {/* Botão - meio direito */}
+      {produto.linkCompra && (
+        <a
+          href={produto.linkCompra}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute right-5 top-1/2 -translate-y-1/2 inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-white bg-[#34C759] rounded-lg hover:bg-[#2DB84E] transition-colors"
+        >
+          Ir para loja &gt;
+        </a>
+      )}
+
+      {/* Vendido por - bottom right */}
+      {produto.loja && (
+        <span className="absolute bottom-3 right-5 text-xs text-[var(--text-secondary)]">
+          Vendido por {produto.loja}
+        </span>
+      )}
     </div>
   );
 }
