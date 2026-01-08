@@ -9,6 +9,8 @@ interface ImageUploadProps {
   onChange: (url: string | null) => void;
   bucket: "setups" | "produtos";
   className?: string;
+  compact?: boolean;
+  label?: string;
 }
 
 export function ImageUpload({
@@ -16,6 +18,8 @@ export function ImageUpload({
   onChange,
   bucket,
   className = "",
+  compact = false,
+  label,
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
@@ -23,14 +27,12 @@ export function ImageUpload({
 
   const handleUpload = useCallback(
     async (file: File) => {
-      // Validar tipo
       const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
       if (!validTypes.includes(file.type)) {
         setError("Formato inválido. Use JPG, PNG ou WebP.");
         return;
       }
 
-      // Validar tamanho (5MB)
       if (file.size > 5 * 1024 * 1024) {
         setError("Imagem muito grande. Máximo 5MB.");
         return;
@@ -92,6 +94,79 @@ export function ImageUpload({
     onChange(null);
   }, [onChange]);
 
+  // Modo compacto (80x80px)
+  if (compact) {
+    if (value) {
+      return (
+        <div className={`relative ${className}`}>
+          <div className="relative w-20 h-20 rounded-xl overflow-hidden group">
+            <Image
+              src={value}
+              alt="Preview"
+              fill
+              className="object-cover"
+              sizes="80px"
+            />
+            <button
+              type="button"
+              onClick={handleRemove}
+              className="absolute top-1 right-1 p-1 bg-black/60 hover:bg-black/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <X className="h-3 w-3 text-white" />
+            </button>
+            {label && (
+              <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[10px] text-center py-0.5">
+                {label}
+              </div>
+            )}
+          </div>
+          {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+        </div>
+      );
+    }
+
+    return (
+      <div className={className}>
+        <label
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragOver(true);
+          }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={handleDrop}
+          className={`w-20 h-20 rounded-xl border-2 border-dashed cursor-pointer flex flex-col items-center justify-center transition-colors ${
+            dragOver
+              ? "border-[#0071e3] bg-[#0071e3]/10"
+              : "border-[var(--border)] hover:border-[var(--text-secondary)] bg-[var(--background)]"
+          }`}
+        >
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleFileSelect}
+            className="hidden"
+            disabled={uploading}
+          />
+
+          {uploading ? (
+            <Loader2 className="h-5 w-5 text-[#0071e3] animate-spin" />
+          ) : (
+            <>
+              <Upload className="h-5 w-5 text-[var(--text-secondary)]" />
+              {label && (
+                <span className="text-[9px] text-[var(--text-secondary)] mt-1 text-center px-1">
+                  {label}
+                </span>
+              )}
+            </>
+          )}
+        </label>
+        {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+      </div>
+    );
+  }
+
+  // Modo normal (aspect-video)
   if (value) {
     return (
       <div className={`relative rounded-xl overflow-hidden ${className}`}>

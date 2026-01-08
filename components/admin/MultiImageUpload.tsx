@@ -105,14 +105,7 @@ export function MultiImageUpload({
   );
 
   return (
-    <div className={className}>
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-[var(--text-secondary)]">
-          {value.length}/{maxImages} imagens
-        </span>
-      </div>
-
-      <div className="flex flex-wrap gap-3">
+    <div className={`flex flex-wrap gap-3 ${className}`}>
         {/* Imagens existentes */}
         {value.map((url, index) => (
           <div
@@ -166,7 +159,6 @@ export function MultiImageUpload({
             )}
           </label>
         )}
-      </div>
 
       {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
     </div>

@@ -101,33 +101,33 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-              Imagem principal *
+              Imagens do setup
             </label>
-            <ImageUpload
-              value={imagemUrl}
-              onChange={(url) => setValue("imagemUrl", url || "")}
-              bucket="setups"
-            />
+            <p className="text-xs text-[var(--text-secondary)] mb-3">
+              A primeira imagem será a principal. Adicione até 10 imagens adicionais.
+            </p>
+            <div className="flex flex-wrap gap-3 items-start">
+              {/* Imagem principal */}
+              <ImageUpload
+                value={imagemUrl}
+                onChange={(url) => setValue("imagemUrl", url || "")}
+                bucket="setups"
+                compact
+                label="Principal"
+              />
+              {/* Imagens adicionais */}
+              <MultiImageUpload
+                value={imagens || []}
+                onChange={(urls) => setValue("imagens", urls)}
+                bucket="setups"
+                maxImages={10}
+              />
+            </div>
             {errors.imagemUrl && (
               <p className="mt-2 text-sm text-red-500">
                 {errors.imagemUrl.message}
               </p>
             )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-              Imagens adicionais (até 10)
-            </label>
-            <p className="text-xs text-[var(--text-secondary)] mb-2">
-              Essas imagens aparecerão como miniaturas abaixo da imagem principal
-            </p>
-            <MultiImageUpload
-              value={imagens || []}
-              onChange={(urls) => setValue("imagens", urls)}
-              bucket="setups"
-              maxImages={10}
-            />
           </div>
 
           <div className="flex items-center gap-4">
