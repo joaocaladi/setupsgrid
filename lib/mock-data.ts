@@ -100,6 +100,18 @@ export const mockSetups: SetupWithRelations[] = [
       "Um setup extremamente limpo e organizado, perfeito para quem busca foco e produtividade sem distrações visuais.",
     imagemUrl:
       "https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=800&q=80",
+    imagens: [
+      "https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=800&q=80",
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80",
+      "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=80",
+      "https://images.unsplash.com/photo-1600494603989-9650cf6ddd3d?w=800&q=80",
+      "https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=800&q=80",
+      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80",
+      "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=800&q=80",
+      "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1537498425277-c283d32ef9db?w=800&q=80",
+    ],
     videoUrl: null,
     isVideo: false,
     autor: "Lucas Silva",

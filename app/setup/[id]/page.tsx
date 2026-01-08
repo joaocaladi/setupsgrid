@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { Header, Footer, ProductCard } from "@/components";
+import { Header, Footer, ProductCard, SetupGallery } from "@/components";
 import { getSetupById } from "@/lib/data";
 import { formatPrice, calculateTotalPrice } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Play, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -62,37 +61,16 @@ export default async function SetupPage({ params }: PageProps) {
         {/* Main content - Two column layout */}
         <section className="container-wide pb-16">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            {/* Left column - Image */}
+            {/* Left column - Image Gallery */}
             <div className="lg:w-1/2">
               <div className="lg:sticky lg:top-20">
-                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--background-tertiary)]">
-                  {setup.isVideo && setup.videoUrl ? (
-                    <video
-                      src={setup.videoUrl}
-                      controls
-                      className="w-full h-full object-cover"
-                      poster={setup.imagemUrl}
-                    />
-                  ) : (
-                    <>
-                      <Image
-                        src={setup.imagemUrl}
-                        alt={setup.titulo}
-                        fill
-                        className="object-cover"
-                        priority
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                      />
-                      {setup.isVideo && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                          <div className="bg-white rounded-full p-5 shadow-lg">
-                            <Play className="h-8 w-8 text-[var(--text-primary)] fill-current" />
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
+                <SetupGallery
+                  imagemPrincipal={setup.imagemUrl}
+                  imagens={setup.imagens}
+                  titulo={setup.titulo}
+                  isVideo={setup.isVideo}
+                  videoUrl={setup.videoUrl}
+                />
               </div>
             </div>
 
