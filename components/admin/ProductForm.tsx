@@ -28,12 +28,12 @@ export function ProductForm({
   }
 
   return (
-    <div className="bg-white rounded-xl border border-[#e5e5e5] overflow-hidden">
+    <div className="bg-[var(--background-secondary)] rounded-xl border border-[var(--border)] overflow-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 bg-[#f5f5f7]">
+      <div className="flex items-center gap-3 px-4 py-3 bg-[var(--background)]">
         <div
           {...dragHandleProps}
-          className="cursor-grab active:cursor-grabbing p-1 text-[#86868b] hover:text-[#1d1d1f]"
+          className="cursor-grab active:cursor-grabbing p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <GripVertical className="h-4 w-4" />
         </div>
@@ -43,25 +43,25 @@ export function ProductForm({
           onClick={onToggle}
           className="flex-1 flex items-center gap-2 text-left"
         >
-          <span className="text-sm font-medium text-[#1d1d1f]">
+          <span className="text-sm font-medium text-[var(--text-primary)]">
             {produto.nome || `Produto ${index + 1}`}
           </span>
           {produto.destaque && (
-            <span className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-700 rounded">
+            <span className="px-2 py-0.5 text-xs font-medium bg-amber-500/10 text-amber-500 rounded">
               Destaque
             </span>
           )}
           {isExpanded ? (
-            <ChevronUp className="h-4 w-4 text-[#86868b] ml-auto" />
+            <ChevronUp className="h-4 w-4 text-[var(--text-secondary)] ml-auto" />
           ) : (
-            <ChevronDown className="h-4 w-4 text-[#86868b] ml-auto" />
+            <ChevronDown className="h-4 w-4 text-[var(--text-secondary)] ml-auto" />
           )}
         </button>
 
         <button
           type="button"
           onClick={onRemove}
-          className="p-1 text-[#86868b] hover:text-red-600 transition-colors"
+          className="p-1 text-[var(--text-secondary)] hover:text-red-500 transition-colors"
         >
           <Trash2 className="h-4 w-4" />
         </button>
@@ -73,27 +73,27 @@ export function ProductForm({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Nome */}
             <div>
-              <label className="block text-sm font-medium text-[#1d1d1f] mb-1.5">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
                 Nome *
               </label>
               <input
                 type="text"
                 value={produto.nome}
                 onChange={(e) => handleChange("nome", e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
                 placeholder="Ex: MacBook Pro 14"
               />
             </div>
 
             {/* Categoria */}
             <div>
-              <label className="block text-sm font-medium text-[#1d1d1f] mb-1.5">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
                 Categoria *
               </label>
               <select
                 value={produto.categoria}
                 onChange={(e) => handleChange("categoria", e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f] bg-white"
+                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] bg-[var(--background)]"
               >
                 <option value="">Selecione...</option>
                 {PRODUTO_CATEGORIAS.map((cat) => (
@@ -107,14 +107,14 @@ export function ProductForm({
 
           {/* Descrição */}
           <div>
-            <label className="block text-sm font-medium text-[#1d1d1f] mb-1.5">
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
               Descrição
             </label>
             <input
               type="text"
               value={produto.descricao || ""}
               onChange={(e) => handleChange("descricao", e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
               placeholder="Ex: Chip M3 Pro, 18GB RAM"
             />
           </div>
@@ -122,7 +122,7 @@ export function ProductForm({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Preço */}
             <div>
-              <label className="block text-sm font-medium text-[#1d1d1f] mb-1.5">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
                 Preço (R$)
               </label>
               <input
@@ -135,20 +135,20 @@ export function ProductForm({
                     e.target.value ? parseFloat(e.target.value) : null
                   )
                 }
-                className="w-full px-3 py-2 rounded-lg border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
                 placeholder="0,00"
               />
             </div>
 
             {/* Loja */}
             <div>
-              <label className="block text-sm font-medium text-[#1d1d1f] mb-1.5">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
                 Loja
               </label>
               <select
                 value={produto.loja || ""}
                 onChange={(e) => handleChange("loja", e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f] bg-white"
+                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] bg-[var(--background)]"
               >
                 <option value="">Selecione...</option>
                 {LOJAS.map((loja) => (
@@ -166,30 +166,30 @@ export function ProductForm({
                   type="checkbox"
                   checked={produto.destaque}
                   onChange={(e) => handleChange("destaque", e.target.checked)}
-                  className="w-4 h-4 rounded border-[#d2d2d7] text-[#0071e3] focus:ring-[#0071e3]"
+                  className="w-4 h-4 rounded border-[var(--border)] text-[#0071e3] focus:ring-[#0071e3]"
                 />
-                <span className="text-sm text-[#1d1d1f]">Produto destaque</span>
+                <span className="text-sm text-[var(--text-primary)]">Produto destaque</span>
               </label>
             </div>
           </div>
 
           {/* Link de compra */}
           <div>
-            <label className="block text-sm font-medium text-[#1d1d1f] mb-1.5">
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
               Link de compra
             </label>
             <input
               type="url"
               value={produto.linkCompra || ""}
               onChange={(e) => handleChange("linkCompra", e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
               placeholder="https://..."
             />
           </div>
 
           {/* Imagem */}
           <div>
-            <label className="block text-sm font-medium text-[#1d1d1f] mb-1.5">
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
               Imagem do produto
             </label>
             <ImageUpload

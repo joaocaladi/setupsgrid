@@ -107,9 +107,9 @@ export function ImageUpload({
         <button
           type="button"
           onClick={handleRemove}
-          className="absolute top-2 right-2 p-2 bg-white/90 hover:bg-white rounded-full shadow-sm transition-colors"
+          className="absolute top-2 right-2 p-2 bg-[var(--background-secondary)]/90 hover:bg-[var(--background-secondary)] rounded-full shadow-sm transition-colors"
         >
-          <X className="h-4 w-4 text-[#1d1d1f]" />
+          <X className="h-4 w-4 text-[var(--text-primary)]" />
         </button>
       </div>
     );
@@ -126,8 +126,8 @@ export function ImageUpload({
         onDrop={handleDrop}
         className={`flex flex-col items-center justify-center aspect-video rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
           dragOver
-            ? "border-[#0071e3] bg-[#0071e3]/5"
-            : "border-[#d2d2d7] hover:border-[#86868b] bg-[#f5f5f7]"
+            ? "border-[#0071e3] bg-[#0071e3]/10"
+            : "border-[var(--border)] hover:border-[var(--text-secondary)] bg-[var(--background)]"
         }`}
       >
         <input
@@ -141,22 +141,22 @@ export function ImageUpload({
         {uploading ? (
           <div className="flex flex-col items-center gap-2">
             <Loader2 className="h-8 w-8 text-[#0071e3] animate-spin" />
-            <span className="text-sm text-[#86868b]">Enviando...</span>
+            <span className="text-sm text-[var(--text-secondary)]">Enviando...</span>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2 p-6">
-            <Upload className="h-8 w-8 text-[#86868b]" />
-            <span className="text-sm font-medium text-[#1d1d1f]">
+            <Upload className="h-8 w-8 text-[var(--text-secondary)]" />
+            <span className="text-sm font-medium text-[var(--text-primary)]">
               Arraste uma imagem ou clique para selecionar
             </span>
-            <span className="text-xs text-[#86868b]">
+            <span className="text-xs text-[var(--text-secondary)]">
               JPG, PNG ou WebP até 5MB
             </span>
           </div>
         )}
       </label>
 
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
     </div>
   );
 }

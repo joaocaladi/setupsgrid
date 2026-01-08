@@ -15,7 +15,7 @@ export default async function AdminLayout({
   const session = await verifySession();
 
   return (
-    <div className="bg-[#f5f5f7] min-h-screen">
+    <div className="bg-[var(--background)] min-h-screen">
       {session && <AdminHeader />}
       <main className={session ? "max-w-7xl mx-auto px-6 py-8" : ""}>
         {children}
@@ -24,9 +24,10 @@ export default async function AdminLayout({
         position="top-right"
         toastOptions={{
           style: {
-            background: "#1d1d1f",
-            color: "#fff",
+            background: "var(--background-secondary)",
+            color: "var(--text-primary)",
             borderRadius: "12px",
+            border: "1px solid var(--border)",
           },
         }}
       />

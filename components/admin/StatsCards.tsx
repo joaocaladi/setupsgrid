@@ -16,19 +16,19 @@ export function StatsCards({
       label: "Total de Setups",
       value: totalSetups,
       icon: Monitor,
-      color: "bg-blue-50 text-blue-600",
+      color: "bg-blue-500/10 text-blue-500",
     },
     {
       label: "Total de Produtos",
       value: totalProdutos,
       icon: Package,
-      color: "bg-green-50 text-green-600",
+      color: "bg-green-500/10 text-green-500",
     },
     {
       label: "Setups em Destaque",
       value: setupsDestaque,
       icon: Star,
-      color: "bg-amber-50 text-amber-600",
+      color: "bg-amber-500/10 text-amber-500",
     },
   ];
 
@@ -39,17 +39,17 @@ export function StatsCards({
         return (
           <div
             key={stat.label}
-            className="bg-white rounded-xl p-6 shadow-sm border border-[#e5e5e5]"
+            className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]"
           >
             <div className="flex items-center gap-4">
               <div className={`p-3 rounded-xl ${stat.color}`}>
                 <Icon className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-2xl font-semibold text-[#1d1d1f]">
+                <p className="text-2xl font-semibold text-[var(--text-primary)]">
                   {stat.value}
                 </p>
-                <p className="text-sm text-[#86868b]">{stat.label}</p>
+                <p className="text-sm text-[var(--text-secondary)]">{stat.label}</p>
               </div>
             </div>
           </div>

@@ -127,7 +127,7 @@ export function ProductList({ produtos, onChange }: ProductListProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-[#1d1d1f]">Produtos</h3>
+        <h3 className="text-lg font-semibold text-[var(--text-primary)]">Produtos</h3>
         <button
           type="button"
           onClick={handleAdd}
@@ -139,8 +139,8 @@ export function ProductList({ produtos, onChange }: ProductListProps) {
       </div>
 
       {produtos.length === 0 ? (
-        <div className="bg-[#f5f5f7] rounded-xl p-8 text-center">
-          <p className="text-[#86868b]">
+        <div className="bg-[var(--background)] rounded-xl p-8 text-center border border-[var(--border)]">
+          <p className="text-[var(--text-secondary)]">
             Nenhum produto adicionado ainda.
           </p>
           <button

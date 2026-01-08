@@ -34,21 +34,21 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7]">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--background)]">
       <div className="w-full max-w-md p-8">
-        <div className="bg-white rounded-2xl shadow-sm p-8">
+        <div className="bg-[var(--background-secondary)] rounded-2xl shadow-sm border border-[var(--border)] p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-semibold text-[#1d1d1f]">
+            <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
               SetupsGrid
             </h1>
-            <p className="text-sm text-[#86868b] mt-1">Painel de Administração</p>
+            <p className="text-sm text-[var(--text-secondary)] mt-1">Painel de Administração</p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg">
+              <div className="bg-red-500/10 text-red-500 text-sm p-3 rounded-lg border border-red-500/20">
                 {error}
               </div>
             )}
@@ -56,7 +56,7 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-[#1d1d1f] mb-2"
+                className="block text-sm font-medium text-[var(--text-primary)] mb-2"
               >
                 Email
               </label>
@@ -66,7 +66,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent transition-all text-[#1d1d1f] placeholder:text-[#86868b]"
+                className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent transition-all text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
                 placeholder="admin@setupsgrid.com"
               />
             </div>
@@ -74,7 +74,7 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-[#1d1d1f] mb-2"
+                className="block text-sm font-medium text-[var(--text-primary)] mb-2"
               >
                 Senha
               </label>
@@ -84,7 +84,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent transition-all text-[#1d1d1f]"
+                className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent transition-all text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
                 placeholder="••••••••"
               />
             </div>

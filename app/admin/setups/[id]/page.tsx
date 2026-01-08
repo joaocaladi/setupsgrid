@@ -52,13 +52,13 @@ export default async function EditSetupPage({ params }: PageProps) {
       <div>
         <Link
           href="/admin"
-          className="inline-flex items-center gap-1 text-sm text-[#86868b] hover:text-[#1d1d1f] transition-colors mb-4"
+          className="inline-flex items-center gap-1 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors mb-4"
         >
           <ChevronLeft className="h-4 w-4" />
           Voltar para dashboard
         </Link>
-        <h1 className="text-2xl font-semibold text-[#1d1d1f]">Editar Setup</h1>
-        <p className="text-[#86868b] mt-1">{setup.titulo}</p>
+        <h1 className="text-2xl font-semibold text-[var(--text-primary)]">Editar Setup</h1>
+        <p className="text-[var(--text-secondary)] mt-1">{setup.titulo}</p>
       </div>
 
       {/* Form */}

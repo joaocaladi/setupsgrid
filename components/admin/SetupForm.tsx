@@ -92,12 +92,12 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
       {/* Seção 1: Mídia */}
-      <section className="bg-white rounded-xl p-6 shadow-sm border border-[#e5e5e5]">
-        <h2 className="text-lg font-semibold text-[#1d1d1f] mb-4">Mídia</h2>
+      <section className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Mídia</h2>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-[#1d1d1f] mb-2">
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
               Imagem principal *
             </label>
             <ImageUpload
@@ -106,7 +106,7 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
               bucket="setups"
             />
             {errors.imagemUrl && (
-              <p className="mt-2 text-sm text-red-600">
+              <p className="mt-2 text-sm text-red-500">
                 {errors.imagemUrl.message}
               </p>
             )}
@@ -117,21 +117,21 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
               <input
                 type="checkbox"
                 {...register("isVideo")}
-                className="w-4 h-4 rounded border-[#d2d2d7] text-[#0071e3] focus:ring-[#0071e3]"
+                className="w-4 h-4 rounded border-[var(--border)] text-[#0071e3] focus:ring-[#0071e3]"
               />
-              <span className="text-sm text-[#1d1d1f]">É um vídeo?</span>
+              <span className="text-sm text-[var(--text-primary)]">É um vídeo?</span>
             </label>
           </div>
 
           {isVideo && (
             <div>
-              <label className="block text-sm font-medium text-[#1d1d1f] mb-2">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
                 URL do vídeo
               </label>
               <input
                 type="url"
                 {...register("videoUrl")}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+                className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
                 placeholder="https://..."
               />
             </div>
@@ -140,61 +140,61 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
       </section>
 
       {/* Seção 2: Informações Básicas */}
-      <section className="bg-white rounded-xl p-6 shadow-sm border border-[#e5e5e5]">
-        <h2 className="text-lg font-semibold text-[#1d1d1f] mb-4">
+      <section className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
           Informações Básicas
         </h2>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-[#1d1d1f] mb-2">
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
               Título *
             </label>
             <input
               type="text"
               {...register("titulo")}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
               placeholder="Ex: Setup Minimalista Clean"
             />
             {errors.titulo && (
-              <p className="mt-2 text-sm text-red-600">
+              <p className="mt-2 text-sm text-red-500">
                 {errors.titulo.message}
               </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#1d1d1f] mb-2">
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
               Descrição
             </label>
             <textarea
               {...register("descricao")}
               rows={3}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f] resize-none"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] resize-none"
               placeholder="Descreva o setup..."
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#1d1d1f] mb-2">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
                 Autor
               </label>
               <input
                 type="text"
                 {...register("autor")}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+                className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
                 placeholder="Ex: @username"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#1d1d1f] mb-2">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
                 Fonte
               </label>
               <select
                 {...register("fonte")}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f] bg-white"
+                className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] bg-[var(--background)]"
               >
                 <option value="">Selecione...</option>
                 {FONTES.map((fonte) => (
@@ -207,13 +207,13 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#1d1d1f] mb-2">
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
               URL da fonte
             </label>
             <input
               type="url"
               {...register("fonteUrl")}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#d2d2d7] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[#1d1d1f]"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
               placeholder="https://..."
             />
           </div>
@@ -221,8 +221,8 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
       </section>
 
       {/* Seção 3: Categorias */}
-      <section className="bg-white rounded-xl p-6 shadow-sm border border-[#e5e5e5]">
-        <h2 className="text-lg font-semibold text-[#1d1d1f] mb-4">
+      <section className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
           Categorias *
         </h2>
 
@@ -232,8 +232,8 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
               key={categoria.id}
               className={`flex items-center gap-2 p-3 rounded-xl border cursor-pointer transition-colors ${
                 categoriaIds?.includes(categoria.id)
-                  ? "border-[#0071e3] bg-[#0071e3]/5"
-                  : "border-[#d2d2d7] hover:border-[#86868b]"
+                  ? "border-[#0071e3] bg-[#0071e3]/10"
+                  : "border-[var(--border)] hover:border-[var(--text-secondary)]"
               }`}
             >
               <input
@@ -242,22 +242,22 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
                 onChange={(e) =>
                   handleCategoriaChange(categoria.id, e.target.checked)
                 }
-                className="w-4 h-4 rounded border-[#d2d2d7] text-[#0071e3] focus:ring-[#0071e3]"
+                className="w-4 h-4 rounded border-[var(--border)] text-[#0071e3] focus:ring-[#0071e3]"
               />
-              <span className="text-sm text-[#1d1d1f]">{categoria.nome}</span>
+              <span className="text-sm text-[var(--text-primary)]">{categoria.nome}</span>
             </label>
           ))}
         </div>
         {errors.categoriaIds && (
-          <p className="mt-2 text-sm text-red-600">
+          <p className="mt-2 text-sm text-red-500">
             {errors.categoriaIds.message}
           </p>
         )}
       </section>
 
       {/* Seção 4: Configurações */}
-      <section className="bg-white rounded-xl p-6 shadow-sm border border-[#e5e5e5]">
-        <h2 className="text-lg font-semibold text-[#1d1d1f] mb-4">
+      <section className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
           Configurações
         </h2>
 
@@ -265,13 +265,13 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
           <input
             type="checkbox"
             {...register("destaque")}
-            className="w-5 h-5 rounded border-[#d2d2d7] text-[#0071e3] focus:ring-[#0071e3]"
+            className="w-5 h-5 rounded border-[var(--border)] text-[#0071e3] focus:ring-[#0071e3]"
           />
           <div>
-            <span className="text-sm font-medium text-[#1d1d1f]">
+            <span className="text-sm font-medium text-[var(--text-primary)]">
               Destacar este setup
             </span>
-            <p className="text-xs text-[#86868b]">
+            <p className="text-xs text-[var(--text-secondary)]">
               Setups em destaque aparecem em posição privilegiada no site
             </p>
           </div>
@@ -279,7 +279,7 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
       </section>
 
       {/* Seção 5: Produtos */}
-      <section className="bg-white rounded-xl p-6 shadow-sm border border-[#e5e5e5]">
+      <section className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
         <ProductList produtos={produtos} onChange={setProdutos} />
       </section>
 
@@ -288,7 +288,7 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
         <button
           type="button"
           onClick={() => router.push("/admin")}
-          className="px-6 py-2.5 text-sm font-medium text-[#1d1d1f] hover:bg-[#f5f5f7] rounded-xl transition-colors"
+          className="px-6 py-2.5 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--background)] rounded-xl transition-colors"
         >
           Cancelar
         </button>

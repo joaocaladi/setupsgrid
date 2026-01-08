@@ -16,8 +16,8 @@ export default async function AdminDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-[#1d1d1f]">Dashboard</h1>
-          <p className="text-[#86868b] mt-1">
+          <h1 className="text-2xl font-semibold text-[var(--text-primary)]">Dashboard</h1>
+          <p className="text-[var(--text-secondary)] mt-1">
             Gerencie os setups do SetupsGrid
           </p>
         </div>
@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
 
       {/* Setups Table */}
       <div>
-        <h2 className="text-lg font-semibold text-[#1d1d1f] mb-4">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
           Todos os Setups
         </h2>
         <SetupsTable setups={setups} categorias={categorias} />
