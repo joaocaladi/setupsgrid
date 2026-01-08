@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import type { Produto } from "@/types";
 
@@ -59,10 +58,9 @@ export function ProductCard({ produto }: ProductCardProps) {
               href={produto.linkCompra}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[13px] text-[var(--accent)] hover:underline transition-colors"
+              className="inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-white bg-[#34C759] rounded-lg hover:bg-[#2DB84E] transition-colors"
             >
-              {produto.loja || "Comprar"}
-              <ExternalLink className="h-3 w-3" />
+              Ir para loja &gt;
             </a>
           )}
         </div>
