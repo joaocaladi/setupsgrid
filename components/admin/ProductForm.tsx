@@ -2,6 +2,7 @@
 
 import { GripVertical, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { PRODUTO_CATEGORIAS, LOJAS, type ProdutoFormData } from "@/lib/validations";
+import { ImageUpload } from "./ImageUpload";
 
 interface ProductFormProps {
   produto: ProdutoFormData;
@@ -69,9 +70,19 @@ export function ProductForm({
       {/* Content */}
       {isExpanded && (
         <div className="p-4 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Nome */}
-            <div>
+          {/* Imagem e campos principais */}
+          <div className="flex gap-4">
+            {/* Imagem do produto */}
+            <ImageUpload
+              value={produto.imagemUrl}
+              onChange={(url) => handleChange("imagemUrl", url || "")}
+              bucket="produtos"
+              compact
+            />
+
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Nome */}
+              <div>
               <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
                 Nome *
               </label>
@@ -101,6 +112,7 @@ export function ProductForm({
                   </option>
                 ))}
               </select>
+            </div>
             </div>
           </div>
 

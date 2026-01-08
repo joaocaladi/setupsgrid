@@ -4,6 +4,7 @@ export const produtoSchema = z.object({
   nome: z.string().min(2, "Nome é obrigatório"),
   descricao: z.string().optional().nullable(),
   categoria: z.string().min(1, "Selecione uma categoria"),
+  imagemUrl: z.string().url().optional().or(z.literal("")).nullable(),
   preco: z.number().positive().optional().nullable(),
   moeda: z.string().default("BRL"),
   linkCompra: z.string().url("URL inválida").optional().or(z.literal("")).nullable(),

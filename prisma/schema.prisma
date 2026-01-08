@@ -45,6 +45,7 @@ model Produto {
   nome       String
   descricao  String?
   categoria  String
+  imagemUrl  String?
   preco      Float?
   moeda      String   @default("BRL")
   linkCompra String?

@@ -37,6 +37,7 @@ export default async function EditSetupPage({ params }: PageProps) {
       nome: p.nome,
       descricao: p.descricao,
       categoria: p.categoria,
+      imagemUrl: p.imagemUrl,
       preco: p.preco,
       moeda: p.moeda,
       linkCompra: p.linkCompra,
