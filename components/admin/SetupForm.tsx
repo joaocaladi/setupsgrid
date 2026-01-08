@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { ImageUpload } from "./ImageUpload";
 import { MultiImageUpload } from "./MultiImageUpload";
 import { ProductList } from "./ProductList";
-import { setupSchema, FONTES, type SetupFormData, type ProdutoFormData } from "@/lib/validations";
+import { setupSchema, type SetupFormData, type ProdutoFormData } from "@/lib/validations";
 import { createSetup, updateSetup } from "@/app/admin/actions";
 import type { Categoria } from "@prisma/client";
 
@@ -168,46 +168,15 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-                Autor
-              </label>
-              <input
-                type="text"
-                {...register("autor")}
-                className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
-                placeholder="Ex: @username"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-                Fonte
-              </label>
-              <select
-                {...register("fonte")}
-                className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] bg-[var(--background)]"
-              >
-                <option value="">Selecione...</option>
-                {FONTES.map((fonte) => (
-                  <option key={fonte} value={fonte}>
-                    {fonte}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
           <div>
             <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-              URL da fonte
+              Autor
             </label>
             <input
-              type="url"
-              {...register("fonteUrl")}
+              type="text"
+              {...register("autor")}
               className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
-              placeholder="https://..."
+              placeholder="Ex: @username"
             />
           </div>
         </div>
