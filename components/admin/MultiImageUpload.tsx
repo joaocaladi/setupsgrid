@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Image from "next/image";
-import { Upload, X, Loader2, Plus } from "lucide-react";
+import { X, Loader2, Plus } from "lucide-react";
 
 interface MultiImageUploadProps {
   value: string[];
@@ -20,31 +20,23 @@ export function MultiImageUpload({
   className = "",
 }: MultiImageUploadProps) {
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const canAddMore = value.length < maxImages;
+  const remainingSlots = maxImages - value.length;
 
-  const handleUpload = useCallback(
-    async (file: File) => {
-      if (!canAddMore) {
-        setError(`Máximo de ${maxImages} imagens permitidas.`);
-        return;
-      }
-
+  const uploadSingleFile = useCallback(
+    async (file: File): Promise<string | null> => {
       const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
       if (!validTypes.includes(file.type)) {
-        setError("Formato inválido. Use JPG, PNG ou WebP.");
-        return;
+        return null;
       }
 
       if (file.size > 5 * 1024 * 1024) {
-        setError("Imagem muito grande. Máximo 5MB.");
-        return;
+        return null;
       }
-
-      setError(null);
-      setUploading(true);
 
       try {
         const formData = new FormData();
@@ -57,43 +49,96 @@ export function MultiImageUpload({
         });
 
         if (!response.ok) {
-          throw new Error("Erro ao fazer upload");
+          return null;
         }
 
         const data = await response.json();
-        onChange([...value, data.url]);
-      } catch (err) {
-        console.error("Erro no upload:", err);
-        setError("Erro ao fazer upload. Tente novamente.");
-      } finally {
-        setUploading(false);
+        return data.url;
+      } catch {
+        return null;
       }
     },
-    [bucket, onChange, value, canAddMore, maxImages]
+    [bucket]
+  );
+
+  const handleMultipleUploads = useCallback(
+    async (files: File[]) => {
+      if (!canAddMore) {
+        setError(`Máximo de ${maxImages} imagens permitidas.`);
+        return;
+      }
+
+      // Filtrar apenas arquivos válidos
+      const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+      const validFiles = files.filter(
+        (file) => validTypes.includes(file.type) && file.size <= 5 * 1024 * 1024
+      );
+
+      if (validFiles.length === 0) {
+        setError("Nenhum arquivo válido. Use JPG, PNG ou WebP até 5MB.");
+        return;
+      }
+
+      // Limitar ao número de slots disponíveis
+      const filesToUpload = validFiles.slice(0, remainingSlots);
+
+      if (validFiles.length > remainingSlots) {
+        setError(`Apenas ${remainingSlots} imagem(ns) podem ser adicionadas.`);
+      } else {
+        setError(null);
+      }
+
+      setUploading(true);
+      const totalFiles = filesToUpload.length;
+      const uploadedUrls: string[] = [];
+
+      // Upload em paralelo com progresso
+      for (let i = 0; i < filesToUpload.length; i++) {
+        setUploadProgress(`${i + 1}/${totalFiles}`);
+        const url = await uploadSingleFile(filesToUpload[i]);
+        if (url) {
+          uploadedUrls.push(url);
+        }
+      }
+
+      if (uploadedUrls.length > 0) {
+        onChange([...value, ...uploadedUrls]);
+      }
+
+      setUploading(false);
+      setUploadProgress("");
+
+      if (uploadedUrls.length < filesToUpload.length) {
+        setError(
+          `${uploadedUrls.length} de ${filesToUpload.length} imagens enviadas.`
+        );
+      }
+    },
+    [canAddMore, maxImages, remainingSlots, uploadSingleFile, onChange, value]
   );
 
   const handleDrop = useCallback(
-    (e: React.DragEvent) => {
+    async (e: React.DragEvent) => {
       e.preventDefault();
       setDragOver(false);
 
-      const file = e.dataTransfer.files[0];
-      if (file) {
-        handleUpload(file);
+      const files = Array.from(e.dataTransfer.files);
+      if (files.length > 0) {
+        await handleMultipleUploads(files);
       }
     },
-    [handleUpload]
+    [handleMultipleUploads]
   );
 
   const handleFileSelect = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (file) {
-        handleUpload(file);
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(e.target.files || []);
+      if (files.length > 0) {
+        await handleMultipleUploads(files);
       }
       e.target.value = "";
     },
-    [handleUpload]
+    [handleMultipleUploads]
   );
 
   const handleRemove = useCallback(
@@ -106,61 +151,69 @@ export function MultiImageUpload({
 
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
-        {/* Imagens existentes */}
-        {value.map((url, index) => (
-          <div
-            key={url}
-            className="relative w-20 h-20 rounded-xl overflow-hidden group"
+      {/* Imagens existentes */}
+      {value.map((url, index) => (
+        <div
+          key={url}
+          className="relative w-20 h-20 rounded-xl overflow-hidden group"
+        >
+          <Image
+            src={url}
+            alt={`Imagem ${index + 1}`}
+            fill
+            className="object-cover"
+            sizes="80px"
+          />
+          <button
+            type="button"
+            onClick={() => handleRemove(index)}
+            className="absolute top-1 right-1 p-1 bg-black/60 hover:bg-black/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
           >
-            <Image
-              src={url}
-              alt={`Imagem ${index + 1}`}
-              fill
-              className="object-cover"
-              sizes="80px"
-            />
-            <button
-              type="button"
-              onClick={() => handleRemove(index)}
-              className="absolute top-1 right-1 p-1 bg-black/60 hover:bg-black/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <X className="h-3 w-3 text-white" />
-            </button>
-          </div>
-        ))}
+            <X className="h-3 w-3 text-white" />
+          </button>
+        </div>
+      ))}
 
-        {/* Botão de adicionar */}
-        {canAddMore && (
-          <label
-            onDragOver={(e) => {
-              e.preventDefault();
-              setDragOver(true);
-            }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={handleDrop}
-            className={`w-20 h-20 rounded-xl border-2 border-dashed cursor-pointer flex items-center justify-center transition-colors ${
-              dragOver
-                ? "border-[#0071e3] bg-[#0071e3]/10"
-                : "border-[var(--border)] hover:border-[var(--text-secondary)] bg-[var(--background)]"
-            }`}
-          >
-            <input
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              onChange={handleFileSelect}
-              className="hidden"
-              disabled={uploading}
-            />
+      {/* Botão de adicionar */}
+      {canAddMore && (
+        <label
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragOver(true);
+          }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={handleDrop}
+          className={`w-20 h-20 rounded-xl border-2 border-dashed cursor-pointer flex flex-col items-center justify-center transition-colors ${
+            dragOver
+              ? "border-[#0071e3] bg-[#0071e3]/10"
+              : "border-[var(--border)] hover:border-[var(--text-secondary)] bg-[var(--background)]"
+          }`}
+        >
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            multiple
+            onChange={handleFileSelect}
+            className="hidden"
+            disabled={uploading}
+          />
 
-            {uploading ? (
+          {uploading ? (
+            <div className="flex flex-col items-center">
               <Loader2 className="h-5 w-5 text-[#0071e3] animate-spin" />
-            ) : (
-              <Plus className="h-5 w-5 text-[var(--text-secondary)]" />
-            )}
-          </label>
-        )}
+              {uploadProgress && (
+                <span className="text-[9px] text-[#0071e3] mt-1">
+                  {uploadProgress}
+                </span>
+              )}
+            </div>
+          ) : (
+            <Plus className="h-5 w-5 text-[var(--text-secondary)]" />
+          )}
+        </label>
+      )}
 
-      {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+      {error && <p className="w-full mt-2 text-sm text-red-500">{error}</p>}
     </div>
   );
 }
