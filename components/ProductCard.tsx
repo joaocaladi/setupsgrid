@@ -10,17 +10,17 @@ export function ProductCard({ produto }: ProductCardProps) {
   return (
     <div className="flex gap-5 p-5 bg-[var(--background-secondary)] rounded-2xl transition-all duration-300 hover:bg-[var(--background-tertiary)]">
       {/* Product image */}
-      <div className="relative w-20 h-20 rounded-xl flex-shrink-0 bg-[var(--background)] flex items-center justify-center overflow-hidden">
+      <div className="relative w-40 h-40 rounded-xl flex-shrink-0 bg-[var(--background)] flex items-center justify-center overflow-hidden">
         {produto.imagemUrl ? (
           <Image
             src={produto.imagemUrl}
             alt={produto.nome}
             fill
             className="object-cover"
-            sizes="80px"
+            sizes="160px"
           />
         ) : (
-          <span className="text-2xl">📦</span>
+          <span className="text-4xl">📦</span>
         )}
       </div>
 
