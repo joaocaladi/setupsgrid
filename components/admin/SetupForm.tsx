@@ -51,7 +51,6 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
   const imagemUrl = watch("imagemUrl");
   const imagens = watch("imagens");
   const categoriaIds = watch("categoriaIds");
-  const isVideo = watch("isVideo");
 
   async function onSubmit(data: SetupFormData) {
     const formData = {
@@ -130,30 +129,6 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
             )}
           </div>
 
-          <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                {...register("isVideo")}
-                className="w-4 h-4 rounded border-[var(--border)] text-[#0071e3] focus:ring-[#0071e3]"
-              />
-              <span className="text-sm text-[var(--text-primary)]">É um vídeo?</span>
-            </label>
-          </div>
-
-          {isVideo && (
-            <div>
-              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-                URL do vídeo
-              </label>
-              <input
-                type="url"
-                {...register("videoUrl")}
-                className="w-full px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
-                placeholder="https://..."
-              />
-            </div>
-          )}
         </div>
       </section>
 
