@@ -40,16 +40,23 @@ export function ProductCard({ produto }: ProductCardProps) {
             </span>
           )}
 
-          {produto.linkCompra && (
-            <a
-              href={produto.linkCompra}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-white bg-[#34C759] rounded-lg hover:bg-[#2DB84E] transition-colors"
-            >
-              Ir para loja &gt;
-            </a>
-          )}
+          <div className="flex flex-col items-end gap-1">
+            {produto.linkCompra && (
+              <a
+                href={produto.linkCompra}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-white bg-[#34C759] rounded-lg hover:bg-[#2DB84E] transition-colors"
+              >
+                Ir para loja &gt;
+              </a>
+            )}
+            {produto.loja && (
+              <span className="text-xs text-[var(--text-secondary)]">
+                Vendido por {produto.loja}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>
