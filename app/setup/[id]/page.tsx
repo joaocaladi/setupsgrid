@@ -96,23 +96,10 @@ export default async function SetupPage({ params }: PageProps) {
                 {setup.titulo}
               </h1>
 
-              {/* Author and source */}
-              {(setup.autor || setup.fonte) && (
+              {/* Author */}
+              {setup.autor && (
                 <p className="text-body-large text-[var(--text-secondary)] mb-6">
-                  {setup.autor && <>por {setup.autor}</>}
-                  {setup.autor && setup.fonte && " · "}
-                  {setup.fonte && setup.fonteUrl ? (
-                    <a
-                      href={setup.fonteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--accent)] hover:underline"
-                    >
-                      {setup.fonte}
-                    </a>
-                  ) : (
-                    setup.fonte
-                  )}
+                  por {setup.autor}
                 </p>
               )}
 
