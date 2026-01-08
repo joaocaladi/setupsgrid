@@ -1,4 +1,4 @@
-import { Monitor, Package, Star } from "lucide-react";
+import { LayoutGrid, Box, Sparkles } from "lucide-react";
 
 interface StatsCardsProps {
   totalSetups: number;
@@ -15,20 +15,17 @@ export function StatsCards({
     {
       label: "Total de Setups",
       value: totalSetups,
-      icon: Monitor,
-      color: "bg-blue-500/10 text-blue-500",
+      icon: LayoutGrid,
     },
     {
       label: "Total de Produtos",
       value: totalProdutos,
-      icon: Package,
-      color: "bg-green-500/10 text-green-500",
+      icon: Box,
     },
     {
       label: "Setups em Destaque",
       value: setupsDestaque,
-      icon: Star,
-      color: "bg-amber-500/10 text-amber-500",
+      icon: Sparkles,
     },
   ];
 
@@ -42,8 +39,8 @@ export function StatsCards({
             className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]"
           >
             <div className="flex items-center gap-4">
-              <div className={`p-3 rounded-xl ${stat.color}`}>
-                <Icon className="h-6 w-6" />
+              <div className="p-3 rounded-xl bg-[var(--background)] border border-[var(--border)]">
+                <Icon className="h-6 w-6 text-[var(--text-secondary)]" />
               </div>
               <div>
                 <p className="text-2xl font-semibold text-[var(--text-primary)]">
