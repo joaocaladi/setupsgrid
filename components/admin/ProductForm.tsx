@@ -1,7 +1,6 @@
 "use client";
 
 import { GripVertical, Trash2, ChevronDown, ChevronUp } from "lucide-react";
-import { ImageUpload } from "./ImageUpload";
 import { PRODUTO_CATEGORIAS, LOJAS, type ProdutoFormData } from "@/lib/validations";
 
 interface ProductFormProps {
@@ -184,19 +183,6 @@ export function ProductForm({
               onChange={(e) => handleChange("linkCompra", e.target.value)}
               className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
               placeholder="https://..."
-            />
-          </div>
-
-          {/* Imagem */}
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-              Imagem do produto
-            </label>
-            <ImageUpload
-              value={produto.imagemUrl}
-              onChange={(url) => handleChange("imagemUrl", url)}
-              bucket="produtos"
-              className="max-w-xs"
             />
           </div>
         </div>

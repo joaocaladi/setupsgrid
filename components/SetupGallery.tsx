@@ -21,7 +21,9 @@ export function SetupGallery({
   videoUrl,
 }: SetupGalleryProps) {
   // Combinar imagem principal com imagens adicionais (se existirem)
-  const todasImagens = imagens && imagens.length > 0 ? imagens : [imagemPrincipal];
+  const todasImagens = imagens && imagens.length > 0
+    ? [imagemPrincipal, ...imagens]
+    : [imagemPrincipal];
   const [imagemSelecionada, setImagemSelecionada] = useState(0);
 
   const temMultiplasImagens = todasImagens.length > 1;

@@ -98,7 +98,6 @@ export function ProductList({ produtos, onChange }: ProductListProps) {
       categoria: "",
       preco: null,
       moeda: "BRL",
-      imagemUrl: null,
       linkCompra: null,
       loja: null,
       destaque: false,

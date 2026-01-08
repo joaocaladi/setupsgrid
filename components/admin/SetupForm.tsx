@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { ImageUpload } from "./ImageUpload";
+import { MultiImageUpload } from "./MultiImageUpload";
 import { ProductList } from "./ProductList";
 import { setupSchema, FONTES, type SetupFormData, type ProdutoFormData } from "@/lib/validations";
 import { createSetup, updateSetup } from "@/app/admin/actions";
@@ -35,6 +36,7 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
       titulo: "",
       descricao: "",
       imagemUrl: "",
+      imagens: [],
       videoUrl: "",
       isVideo: false,
       autor: "",
@@ -47,6 +49,7 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
   });
 
   const imagemUrl = watch("imagemUrl");
+  const imagens = watch("imagens");
   const categoriaIds = watch("categoriaIds");
   const isVideo = watch("isVideo");
 
@@ -110,6 +113,21 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
                 {errors.imagemUrl.message}
               </p>
             )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+              Imagens adicionais (até 10)
+            </label>
+            <p className="text-xs text-[var(--text-secondary)] mb-2">
+              Essas imagens aparecerão como miniaturas abaixo da imagem principal
+            </p>
+            <MultiImageUpload
+              value={imagens || []}
+              onChange={(urls) => setValue("imagens", urls)}
+              bucket="setups"
+              maxImages={10}
+            />
           </div>
 
           <div className="flex items-center gap-4">

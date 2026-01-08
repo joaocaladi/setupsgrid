@@ -4,7 +4,6 @@ import type { Setup, Categoria, Produto } from "@prisma/client";
 export type SetupWithRelations = Setup & {
   categorias: Categoria[];
   produtos: Produto[];
-  imagens?: string[]; // Array opcional de URLs de imagens adicionais (até 10)
 };
 
 export type CategoriaWithSetups = Categoria & {
