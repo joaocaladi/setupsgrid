@@ -73,6 +73,12 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-6">
               <Link
+                href="/sobre"
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                Sobre
+              </Link>
+              <Link
                 href="/privacidade"
                 className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
@@ -89,6 +95,12 @@ export function Footer() {
                 className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
                 Mapa do site
+              </Link>
+              <Link
+                href="/contato"
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                Contato
               </Link>
             </div>
           </div>
