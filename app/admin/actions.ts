@@ -259,6 +259,33 @@ export async function getCategorias() {
   }
 }
 
+export async function getCategoriasWithGrupos() {
+  try {
+    const grupos = await prisma.grupoCategoria.findMany({
+      include: {
+        categorias: {
+          include: {
+            _count: {
+              select: { setups: true },
+            },
+          },
+          orderBy: {
+            ordem: "asc",
+          },
+        },
+      },
+      orderBy: {
+        ordem: "asc",
+      },
+    });
+
+    return grupos;
+  } catch (error) {
+    console.error("Erro ao buscar grupos de categorias:", error);
+    return [];
+  }
+}
+
 export async function getSetupForEdit(id: string) {
   try {
     const setup = await prisma.setup.findUnique({

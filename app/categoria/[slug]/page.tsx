@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Header, Footer, SetupGrid } from "@/components";
-import { getCategoriaBySlug } from "@/lib/data";
+import { HeaderWrapper, Footer, SetupGrid } from "@/components";
+import { getCategoriaWithGrupo } from "@/lib/data";
 import type { SetupWithRelations } from "@/types";
 import type { Metadata } from "next";
 import { ChevronLeft } from "lucide-react";
@@ -12,7 +12,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const categoria = await getCategoriaBySlug(slug);
+  const categoria = await getCategoriaWithGrupo(slug);
 
   if (!categoria) {
     return {
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CategoriaPage({ params }: PageProps) {
   const { slug } = await params;
-  const categoria = await getCategoriaBySlug(slug);
+  const categoria = await getCategoriaWithGrupo(slug);
 
   if (!categoria) {
     notFound();
@@ -40,20 +40,36 @@ export default async function CategoriaPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--background)]">
-      <Header categoriaAtiva={slug} />
+      <HeaderWrapper categoriaAtiva={slug} />
 
       <main className="flex-1">
         {/* Category Header - Apple style */}
         <section className="section-padding">
           <div className="container-text">
-            {/* Back link */}
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1 text-[var(--accent)] hover:underline text-sm mb-8"
-            >
-              <ChevronLeft className="h-4 w-4" />
-              Todos os setups
-            </Link>
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-sm mb-8">
+              <Link
+                href="/"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                Todos
+              </Link>
+              <ChevronLeft className="h-3 w-3 text-[var(--text-tertiary)] rotate-180" />
+              <Link
+                href="/categorias"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                Categorias
+              </Link>
+              {categoria.grupo && (
+                <>
+                  <ChevronLeft className="h-3 w-3 text-[var(--text-tertiary)] rotate-180" />
+                  <span className="text-[var(--text-secondary)]">
+                    {categoria.grupo.nome}
+                  </span>
+                </>
+              )}
+            </div>
 
             {/* Title */}
             <h1 className="text-display text-[var(--text-primary)] mb-4">

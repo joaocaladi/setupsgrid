@@ -1,4 +1,4 @@
-import { Header, Footer, SetupGrid } from "@/components";
+import { HeaderWrapper, Footer, SetupGrid } from "@/components";
 import { getSetups } from "@/lib/data";
 
 export default async function HomePage() {
@@ -6,7 +6,7 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--background)]">
-      <Header />
+      <HeaderWrapper />
 
       <main className="flex-1">
         {/* Hero Section - Apple style with generous spacing */}

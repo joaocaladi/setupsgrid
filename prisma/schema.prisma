@@ -27,17 +27,29 @@ model Setup {
   categorias    Categoria[] @relation("CategoriaToSetup")
 }
 
+model GrupoCategoria {
+  id         String      @id @default(cuid())
+  nome       String      @unique
+  slug       String      @unique
+  ordem      Int         @default(0)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  categorias Categoria[]
+}
+
 model Categoria {
-  id        String   @id @default(cuid())
-  nome      String   @unique
-  slug      String   @unique
+  id        String          @id @default(cuid())
+  nome      String          @unique
+  slug      String          @unique
   descricao String?
   cor       String?
   icone     String?
-  ordem     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  setups    Setup[]  @relation("CategoriaToSetup")
+  ordem     Int             @default(0)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  setups    Setup[]         @relation("CategoriaToSetup")
+  grupoId   String?
+  grupo     GrupoCategoria? @relation(fields: [grupoId], references: [id])
 }
 
 model Produto {

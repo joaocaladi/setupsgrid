@@ -108,3 +108,55 @@ export async function getRelatedSetups(
     return [];
   }
 }
+
+export async function getGruposWithCategorias() {
+  if (USE_MOCK) {
+    return [];
+  }
+
+  try {
+    const grupos = await prisma.grupoCategoria.findMany({
+      include: {
+        categorias: {
+          orderBy: { ordem: "asc" },
+          include: {
+            _count: {
+              select: { setups: true },
+            },
+          },
+        },
+      },
+      orderBy: { ordem: "asc" },
+    });
+    return grupos;
+  } catch {
+    console.warn("Database unavailable");
+    return [];
+  }
+}
+
+export async function getCategoriaWithGrupo(slug: string) {
+  if (USE_MOCK) {
+    return null;
+  }
+
+  try {
+    const categoria = await prisma.categoria.findUnique({
+      where: { slug },
+      include: {
+        grupo: true,
+        setups: {
+          include: {
+            categorias: true,
+            produtos: true,
+          },
+          orderBy: [{ destaque: "desc" }, { createdAt: "desc" }],
+        },
+      },
+    });
+    return categoria;
+  } catch {
+    console.warn("Database unavailable");
+    return null;
+  }
+}

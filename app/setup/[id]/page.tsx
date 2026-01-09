@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Header, Footer, ProductCard, SetupGallery, SetupGrid } from "@/components";
+import { HeaderWrapper, Footer, ProductCard, SetupGallery, SetupGrid } from "@/components";
 import { getSetupById, getRelatedSetups } from "@/lib/data";
 import { formatPrice, calculateTotalPrice } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -47,7 +47,7 @@ export default async function SetupPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--background)]">
-      <Header />
+      <HeaderWrapper />
 
       <main className="flex-1">
         {/* Back button */}

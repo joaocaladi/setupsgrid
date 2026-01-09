@@ -1,4 +1,4 @@
-import { Header, Footer } from "@/components";
+import { HeaderWrapper, Footer } from "@/components";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function SobrePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[var(--background)]">
-      <Header />
+      <HeaderWrapper />
 
       <main className="flex-1">
         {/* Back button */}

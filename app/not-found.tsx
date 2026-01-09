@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Header, Footer } from "@/components";
+import { HeaderWrapper, Footer } from "@/components";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col bg-[var(--background)]">
-      <Header />
+      <HeaderWrapper />
 
       <main className="flex-1 flex items-center justify-center px-4">
         <div className="text-center">
