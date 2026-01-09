@@ -8,8 +8,8 @@ const categorias = [
 ];
 
 const links = [
-  { nome: "Sobre", href: "#" },
-  { nome: "Contato", href: "#" },
+  { nome: "Sobre", href: "/sobre" },
+  { nome: "Contato", href: "/contato" },
   { nome: "Privacidade", href: "/privacidade" },
   { nome: "Termos", href: "/termos" },
 ];
