@@ -8,7 +8,6 @@ export { SetupGrid } from "./SetupGrid";
 export { SetupGallery } from "./SetupGallery";
 export { ProductCard } from "./ProductCard";
 export { CategoryBadge } from "./CategoryBadge";
-export { CategoryDropdown } from "./CategoryDropdown";
 export { SearchBar } from "./SearchBar";
 export {
   LoadingSpinner,

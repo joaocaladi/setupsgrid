@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Moon, Sun } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Moon, Sun, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
-import { CategoryDropdown } from "./CategoryDropdown";
 
 interface Categoria {
   id: string;
@@ -27,8 +27,101 @@ interface HeaderClientProps {
   grupos?: GrupoCategoria[];
 }
 
+// Mapeamento de nomes curtos para o header
+const nomesAbreviados: Record<string, string> = {
+  "Por Profissão": "Profissão",
+  "Por Configuração": "Config",
+  "Por Estética": "Estética",
+  "Por Ambiente": "Ambiente",
+  "Por Elementos": "Elementos",
+  "Por Orçamento": "Orçamento",
+};
+
 export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps) {
   const { theme, toggleTheme } = useTheme();
+  const [activeGrupo, setActiveGrupo] = useState<string | null>(null);
+  const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Encontrar o grupo ativo
+  const activeGrupoData = grupos.find((g) => g.id === activeGrupo);
+
+  // Calcular número de colunas baseado na quantidade de categorias
+  const numCategorias = activeGrupoData?.categorias.length || 0;
+  const colunasGrid = numCategorias > 30 ? 6 : numCategorias > 20 ? 5 : numCategorias > 10 ? 4 : 3;
+
+  const handleMenuEnter = (grupoId: string) => {
+    if (menuTimeoutRef.current) {
+      clearTimeout(menuTimeoutRef.current);
+    }
+    setActiveGrupo(grupoId);
+  };
+
+  const handleMenuLeave = () => {
+    menuTimeoutRef.current = setTimeout(() => {
+      setActiveGrupo(null);
+    }, 150);
+  };
+
+  const handleMenuClose = () => {
+    if (menuTimeoutRef.current) {
+      clearTimeout(menuTimeoutRef.current);
+    }
+    setActiveGrupo(null);
+  };
+
+  // Bloquear scroll da página quando o megamenu está aberto
+  useEffect(() => {
+    if (activeGrupo) {
+      // Calcular largura da scrollbar para compensar
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const scrollY = window.scrollY;
+
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    }
+
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    };
+  }, [activeGrupo]);
+
+  // Click outside handler
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        handleMenuClose();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 glass border-b border-[var(--border)]">
@@ -43,7 +136,11 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
           </Link>
 
           {/* Center navigation - Category groups */}
-          <div className="hidden md:flex items-center gap-5">
+          <div
+            ref={menuRef}
+            className="hidden md:flex items-center gap-5"
+            onMouseLeave={handleMenuLeave}
+          >
             <Link
               href="/"
               className={cn(
@@ -56,7 +153,19 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
               Todos
             </Link>
             {grupos.map((grupo) => (
-              <CategoryDropdown key={grupo.id} grupo={grupo} />
+              <button
+                key={grupo.id}
+                className={cn(
+                  "text-xs font-normal transition-colors duration-300",
+                  activeGrupo === grupo.id
+                    ? "text-[var(--text-primary)]"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                )}
+                onMouseEnter={() => handleMenuEnter(grupo.id)}
+                onClick={() => setActiveGrupo(activeGrupo === grupo.id ? null : grupo.id)}
+              >
+                {nomesAbreviados[grupo.nome] || grupo.nome}
+              </button>
             ))}
           </div>
 
@@ -122,6 +231,65 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
           </div>
         </div>
       </div>
+
+      {/* Mega Menu - único, compartilhado */}
+      {activeGrupo && activeGrupoData && (
+        <>
+          {/* Overlay escuro */}
+          <div
+            className="fixed inset-0 top-12 bg-black/40 z-40"
+            onClick={handleMenuClose}
+            onWheel={(e) => e.preventDefault()}
+          />
+
+          {/* Megamenu full-width */}
+          <div
+            className="fixed left-0 right-0 top-12 z-50 bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)] shadow-lg max-h-[calc(100vh-48px)] overflow-y-auto overscroll-contain"
+            onMouseEnter={() => {
+              if (menuTimeoutRef.current) {
+                clearTimeout(menuTimeoutRef.current);
+              }
+            }}
+            onMouseLeave={handleMenuLeave}
+          >
+            <div className="max-w-[980px] mx-auto px-6 py-8">
+              {/* Título do grupo */}
+              <h3 className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-6">
+                {activeGrupoData.nome}
+              </h3>
+
+              {/* Grid de categorias */}
+              <div
+                className="grid gap-x-8 gap-y-2.5"
+                style={{ gridTemplateColumns: `repeat(${colunasGrid}, minmax(0, 1fr))` }}
+              >
+                {activeGrupoData.categorias.map((categoria) => (
+                  <Link
+                    key={categoria.id}
+                    href={`/categoria/${categoria.slug}`}
+                    className="text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors block py-1"
+                    onClick={handleMenuClose}
+                  >
+                    {categoria.nome}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Link para ver todas */}
+              <div className="mt-8 pt-6 border-t border-[var(--border)]">
+                <Link
+                  href={`/categorias#${activeGrupoData.slug}`}
+                  className="inline-flex items-center gap-1 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                  onClick={handleMenuClose}
+                >
+                  Ver todas de {activeGrupoData.nome}
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </header>
   );
 }
