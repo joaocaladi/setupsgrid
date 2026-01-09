@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Header, Footer, ProductCard, SetupGallery } from "@/components";
-import { getSetupById } from "@/lib/data";
+import { Header, Footer, ProductCard, SetupGallery, SetupGrid } from "@/components";
+import { getSetupById, getRelatedSetups } from "@/lib/data";
 import { formatPrice, calculateTotalPrice } from "@/lib/utils";
 import type { Metadata } from "next";
 import { ChevronLeft } from "lucide-react";
@@ -41,6 +41,9 @@ export default async function SetupPage({ params }: PageProps) {
 
   const totalPrice = calculateTotalPrice(setup.produtos);
   const productsWithPrice = setup.produtos.filter((p) => p.preco);
+
+  const categoriaIds = setup.categorias.map((cat) => cat.id);
+  const relatedSetups = await getRelatedSetups(setup.id, categoriaIds);
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--background)]">
@@ -143,6 +146,12 @@ export default async function SetupPage({ params }: PageProps) {
           </div>
         </section>
 
+        {/* Related Setups */}
+        {relatedSetups.length > 0 && (
+          <section className="container-wide pb-16">
+            <SetupGrid setups={relatedSetups} />
+          </section>
+        )}
       </main>
 
       <Footer />

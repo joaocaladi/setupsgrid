@@ -75,3 +75,36 @@ export async function getCategoriaBySlug(slug: string) {
     return getMockCategoriaBySlug(slug);
   }
 }
+
+export async function getRelatedSetups(
+  setupId: string,
+  categoriaIds: string[],
+  limit: number = 6
+): Promise<SetupWithRelations[]> {
+  if (USE_MOCK || categoriaIds.length === 0) {
+    return [];
+  }
+
+  try {
+    const setups = await prisma.setup.findMany({
+      where: {
+        id: { not: setupId },
+        categorias: {
+          some: {
+            id: { in: categoriaIds },
+          },
+        },
+      },
+      include: {
+        categorias: true,
+        produtos: true,
+      },
+      orderBy: [{ destaque: "desc" }, { createdAt: "desc" }],
+      take: limit,
+    });
+    return setups;
+  } catch {
+    console.warn("Database unavailable");
+    return [];
+  }
+}
