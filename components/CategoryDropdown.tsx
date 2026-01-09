@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Categoria {
@@ -22,12 +22,21 @@ interface GrupoCategoria {
 }
 
 interface CategoryDropdownProps {
-  grupos: GrupoCategoria[];
+  grupo: GrupoCategoria;
 }
 
-export function CategoryDropdown({ grupos }: CategoryDropdownProps) {
+// Mapeamento de nomes curtos para o header
+const nomesAbreviados: Record<string, string> = {
+  "Por Profissão": "Profissão",
+  "Por Configuração": "Config",
+  "Por Estética": "Estética",
+  "Por Ambiente": "Ambiente",
+  "Por Elementos": "Elementos",
+  "Por Orçamento": "Orçamento",
+};
+
+export function CategoryDropdown({ grupo }: CategoryDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeGrupo, setActiveGrupo] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -38,7 +47,6 @@ export function CategoryDropdown({ grupos }: CategoryDropdownProps) {
         !dropdownRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
-        setActiveGrupo(null);
       }
     }
 
@@ -46,24 +54,64 @@ export function CategoryDropdown({ grupos }: CategoryDropdownProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Bloquear scroll da página quando o megamenu está aberto
+  useEffect(() => {
+    if (isOpen) {
+      // Salvar posição atual do scroll
+      const scrollY = window.scrollY;
+
+      // Aplicar estilos para bloquear scroll
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.overflow = "hidden";
+    } else {
+      // Recuperar posição do scroll
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+
+      // Restaurar scroll para posição original
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    }
+
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    };
+  }, [isOpen]);
+
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
     setIsOpen(true);
-    if (!activeGrupo && grupos.length > 0) {
-      setActiveGrupo(grupos[0].id);
-    }
   };
 
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setIsOpen(false);
-      setActiveGrupo(null);
     }, 150);
   };
 
-  const activeGrupoData = grupos.find((g) => g.id === activeGrupo);
+  const nomeExibido = nomesAbreviados[grupo.nome] || grupo.nome;
+
+  // Calcular número de colunas baseado na quantidade de categorias
+  const numCategorias = grupo.categorias.length;
+  const colunasGrid = numCategorias > 30 ? 6 : numCategorias > 20 ? 5 : numCategorias > 10 ? 4 : 3;
 
   return (
     <div
@@ -74,82 +122,64 @@ export function CategoryDropdown({ grupos }: CategoryDropdownProps) {
     >
       <button
         className={cn(
-          "flex items-center gap-1 text-xs font-normal transition-colors duration-300",
+          "text-xs font-normal transition-colors duration-300",
           isOpen
             ? "text-[var(--text-primary)]"
             : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        Categorias
-        <ChevronDown
-          className={cn(
-            "h-3 w-3 transition-transform duration-200",
-            isOpen && "rotate-180"
-          )}
-        />
+        {nomeExibido}
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[700px] bg-[var(--background)] border border-[var(--border)] rounded-xl shadow-xl overflow-hidden">
-          <div className="flex">
-            {/* Grupos (sidebar esquerda) */}
-            <div className="w-48 bg-[var(--background-secondary)] border-r border-[var(--border)] py-2">
-              {grupos.map((grupo) => (
-                <button
-                  key={grupo.id}
-                  className={cn(
-                    "w-full text-left px-4 py-2.5 text-xs transition-colors",
-                    activeGrupo === grupo.id
-                      ? "bg-[var(--background-tertiary)] text-[var(--text-primary)] font-medium"
-                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--background-tertiary)]"
-                  )}
-                  onMouseEnter={() => setActiveGrupo(grupo.id)}
-                >
-                  {grupo.nome}
-                </button>
-              ))}
-              <div className="border-t border-[var(--border)] mt-2 pt-2">
+        <>
+          {/* Overlay escuro */}
+          <div
+            className="fixed inset-0 top-12 bg-black/40 z-40"
+            onClick={() => setIsOpen(false)}
+            onWheel={(e) => e.preventDefault()}
+          />
+
+          {/* Megamenu full-width */}
+          <div className="fixed left-0 right-0 top-12 z-50 bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)] shadow-lg max-h-[calc(100vh-48px)] overflow-y-auto overscroll-contain">
+            <div className="max-w-[980px] mx-auto px-6 py-8">
+              {/* Título do grupo */}
+              <h3 className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-6">
+                {grupo.nome}
+              </h3>
+
+              {/* Grid de categorias */}
+              <div
+                className="grid gap-x-8 gap-y-2.5"
+                style={{ gridTemplateColumns: `repeat(${colunasGrid}, minmax(0, 1fr))` }}
+              >
+                {grupo.categorias.map((categoria) => (
+                  <Link
+                    key={categoria.id}
+                    href={`/categoria/${categoria.slug}`}
+                    className="text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors block py-1"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {categoria.nome}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Link para ver todas */}
+              <div className="mt-8 pt-6 border-t border-[var(--border)]">
                 <Link
-                  href="/categorias"
-                  className="block px-4 py-2.5 text-xs text-[var(--accent)] hover:text-[var(--accent-hover)] font-medium"
+                  href={`/categorias#${grupo.slug}`}
+                  className="inline-flex items-center gap-1 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
-                  Ver todas as categorias
+                  Ver todas de {grupo.nome}
+                  <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
-
-            {/* Subcategorias (área principal) */}
-            <div className="flex-1 p-4 max-h-[400px] overflow-y-auto">
-              {activeGrupoData && (
-                <>
-                  <h3 className="text-xs font-semibold text-[var(--text-primary)] mb-3">
-                    {activeGrupoData.nome}
-                  </h3>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                    {activeGrupoData.categorias.map((categoria) => (
-                      <Link
-                        key={categoria.id}
-                        href={`/categoria/${categoria.slug}`}
-                        className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-1.5 transition-colors truncate"
-                        onClick={() => setIsOpen(false)}
-                        title={categoria.nome}
-                      >
-                        {categoria.nome}
-                        {categoria._count && categoria._count.setups > 0 && (
-                          <span className="text-[var(--text-tertiary)] ml-1">
-                            ({categoria._count.setups})
-                          </span>
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

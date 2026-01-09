@@ -42,12 +42,12 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
             </span>
           </Link>
 
-          {/* Center navigation - Categories */}
-          <div className="hidden md:flex items-center gap-6">
+          {/* Center navigation - Category groups */}
+          <div className="hidden md:flex items-center gap-5">
             <Link
               href="/"
               className={cn(
-                "text-xs font-normal transition-opacity duration-300",
+                "text-xs font-normal transition-colors duration-300",
                 !categoriaAtiva
                   ? "text-[var(--text-primary)]"
                   : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -55,7 +55,9 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
             >
               Todos
             </Link>
-            {grupos.length > 0 && <CategoryDropdown grupos={grupos} />}
+            {grupos.map((grupo) => (
+              <CategoryDropdown key={grupo.id} grupo={grupo} />
+            ))}
           </div>
 
           {/* Right side - Theme toggle and Search */}
