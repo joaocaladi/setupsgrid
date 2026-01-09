@@ -66,21 +66,30 @@ export async function validateCredentials(
 ): Promise<boolean> {
   const adminEmail = process.env.ADMIN_EMAIL;
   const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+  const adminPassword = process.env.ADMIN_PASSWORD;
 
-  // Exige sempre hash em produção - sem fallback para texto plano
-  if (!adminEmail || !adminPasswordHash) {
-    // Timing attack mitigation: sempre executa hash
+  if (!adminEmail) {
     await hashPassword(password);
     return false;
   }
 
   if (email !== adminEmail) {
-    // Timing attack mitigation: sempre executa hash mesmo com email inválido
     await hashPassword(password);
     return false;
   }
 
-  return verifyPassword(password, adminPasswordHash);
+  // Usar hash se disponível
+  if (adminPasswordHash) {
+    return verifyPassword(password, adminPasswordHash);
+  }
+
+  // Fallback para texto plano (apenas em desenvolvimento)
+  if (adminPassword && process.env.NODE_ENV !== "production") {
+    return password === adminPassword;
+  }
+
+  await hashPassword(password);
+  return false;
 }
 
 export async function generatePasswordHash(password: string): Promise<string> {

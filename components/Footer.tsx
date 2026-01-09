@@ -11,7 +11,7 @@ const links = [
   { nome: "Sobre", href: "#" },
   { nome: "Contato", href: "#" },
   { nome: "Privacidade", href: "#" },
-  { nome: "Termos", href: "#" },
+  { nome: "Termos", href: "/termos" },
 ];
 
 export function Footer() {
@@ -79,7 +79,7 @@ export function Footer() {
                 Privacidade
               </Link>
               <Link
-                href="#"
+                href="/termos"
                 className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
                 Termos
