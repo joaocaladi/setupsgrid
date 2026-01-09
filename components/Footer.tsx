@@ -10,7 +10,7 @@ const categorias = [
 const links = [
   { nome: "Sobre", href: "#" },
   { nome: "Contato", href: "#" },
-  { nome: "Privacidade", href: "#" },
+  { nome: "Privacidade", href: "/privacidade" },
   { nome: "Termos", href: "/termos" },
 ];
 
@@ -73,7 +73,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-6">
               <Link
-                href="#"
+                href="/privacidade"
                 className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
                 Privacidade
