@@ -143,25 +143,6 @@ export default async function SetupPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* CTA Section - Full width */}
-        <section className="section-padding bg-[var(--background-tertiary)]">
-          <div className="container-text text-center">
-            <h3 className="text-h3 text-[var(--text-primary)] mb-3">
-              Gostou deste setup?
-            </h3>
-            <p className="text-body text-[var(--text-secondary)] mb-8">
-              Explore mais setups e encontre inspiração para o seu workspace.
-            </p>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
-              <Link href="/" className="btn-primary">
-                Explorar mais setups
-              </Link>
-              <button className="btn-outline">
-                Compartilhar
-              </button>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />
