@@ -42,6 +42,7 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
   const [activeGrupo, setActiveGrupo] = useState<string | null>(null);
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const megaMenuRef = useRef<HTMLDivElement>(null);
 
   // Encontrar o grupo ativo
   const activeGrupoData = grupos.find((g) => g.id === activeGrupo);
@@ -114,7 +115,12 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
   // Click outside handler
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      const isOutsideMenu = menuRef.current && !menuRef.current.contains(target);
+      const isOutsideMegaMenu = !megaMenuRef.current || !megaMenuRef.current.contains(target);
+
+      // Só fecha se o clique for fora de AMBAS as áreas
+      if (isOutsideMenu && isOutsideMegaMenu) {
         handleMenuClose();
       }
     }
@@ -244,6 +250,7 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
 
           {/* Megamenu full-width */}
           <div
+            ref={megaMenuRef}
             className="fixed left-0 right-0 top-12 z-50 bg-[var(--background)]/95 backdrop-blur-xl border-b border-[var(--border)] shadow-lg max-h-[calc(100vh-48px)] overflow-y-auto overscroll-contain"
             onMouseEnter={() => {
               if (menuTimeoutRef.current) {
@@ -268,7 +275,6 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
                     key={categoria.id}
                     href={`/categoria/${categoria.slug}`}
                     className="text-sm text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors block py-1"
-                    onClick={handleMenuClose}
                   >
                     {categoria.nome}
                   </Link>
@@ -280,7 +286,6 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
                 <Link
                   href={`/categorias#${activeGrupoData.slug}`}
                   className="inline-flex items-center gap-1 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-                  onClick={handleMenuClose}
                 >
                   Ver todas de {activeGrupoData.nome}
                   <ChevronRight className="h-4 w-4" />
