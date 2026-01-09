@@ -1,13 +1,29 @@
 import { z } from "zod";
 
+// Validador de URL segura (bloqueia javascript:, data:, etc.)
+const safeUrl = z.string().url().refine(
+  (url) => {
+    try {
+      const parsed = new URL(url);
+      return ["http:", "https:"].includes(parsed.protocol);
+    } catch {
+      return false;
+    }
+  },
+  { message: "URL deve usar protocolo http ou https" }
+);
+
+// Validador opcional de URL segura
+const optionalSafeUrl = safeUrl.optional().or(z.literal("")).nullable();
+
 export const produtoSchema = z.object({
   nome: z.string().min(2, "Nome é obrigatório"),
   descricao: z.string().optional().nullable(),
   categoria: z.string().min(1, "Selecione uma categoria"),
-  imagemUrl: z.string().url().optional().or(z.literal("")).nullable(),
+  imagemUrl: optionalSafeUrl,
   preco: z.number().positive().optional().nullable(),
   moeda: z.string().default("BRL"),
-  linkCompra: z.string().url("URL inválida").optional().or(z.literal("")).nullable(),
+  linkCompra: optionalSafeUrl,
   loja: z.string().optional().nullable(),
   destaque: z.boolean().default(false),
   ordem: z.number().default(0),
@@ -16,13 +32,13 @@ export const produtoSchema = z.object({
 export const setupSchema = z.object({
   titulo: z.string().min(3, "Título deve ter pelo menos 3 caracteres"),
   descricao: z.string().optional().nullable(),
-  imagemUrl: z.string().url("Imagem é obrigatória"),
-  imagens: z.array(z.string()).max(10, "Máximo de 10 imagens").default([]),
-  videoUrl: z.string().url().optional().or(z.literal("")).nullable(),
+  imagemUrl: safeUrl,
+  imagens: z.array(safeUrl).max(10, "Máximo de 10 imagens").default([]),
+  videoUrl: optionalSafeUrl,
   isVideo: z.boolean().default(false),
   autor: z.string().optional().nullable(),
   fonte: z.string().optional().nullable(),
-  fonteUrl: z.string().url().optional().or(z.literal("")).nullable(),
+  fonteUrl: optionalSafeUrl,
   destaque: z.boolean().default(false),
   categoriaIds: z.array(z.string()).min(1, "Selecione pelo menos uma categoria"),
   produtos: z.array(produtoSchema).default([]),

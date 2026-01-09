@@ -7,20 +7,39 @@ import {
   createSession,
   deleteSession,
   validateCredentials,
+  verifySession,
 } from "@/lib/auth";
 import { setupSchema, type SetupFormData } from "@/lib/validations";
+import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
 
 // ============================================
 // AUTH ACTIONS
 // ============================================
 
 export async function login(email: string, password: string) {
-  const isValid = validateCredentials(email, password);
+  const rateLimitKey = `login:${email.toLowerCase()}`;
+  const rateLimit = checkRateLimit(rateLimitKey);
 
-  if (!isValid) {
-    return { success: false, error: "Credenciais inválidas" };
+  if (!rateLimit.success) {
+    const minutesRemaining = Math.ceil(
+      (rateLimit.resetAt - Date.now()) / 60000
+    );
+    return {
+      success: false,
+      error: `Muitas tentativas. Tente novamente em ${minutesRemaining} minutos.`,
+    };
   }
 
+  const isValid = await validateCredentials(email, password);
+
+  if (!isValid) {
+    return {
+      success: false,
+      error: `Credenciais inválidas. ${rateLimit.remaining} tentativas restantes.`,
+    };
+  }
+
+  resetRateLimit(rateLimitKey);
   await createSession(email);
   return { success: true };
 }
@@ -35,6 +54,11 @@ export async function logout() {
 // ============================================
 
 export async function createSetup(data: SetupFormData) {
+  const session = await verifySession();
+  if (!session) {
+    return { success: false, error: "Não autorizado" };
+  }
+
   const parsed = setupSchema.safeParse(data);
 
   if (!parsed.success) {
@@ -69,6 +93,11 @@ export async function createSetup(data: SetupFormData) {
 }
 
 export async function updateSetup(id: string, data: SetupFormData) {
+  const session = await verifySession();
+  if (!session) {
+    return { success: false, error: "Não autorizado" };
+  }
+
   const parsed = setupSchema.safeParse(data);
 
   if (!parsed.success) {
@@ -111,6 +140,11 @@ export async function updateSetup(id: string, data: SetupFormData) {
 }
 
 export async function deleteSetup(id: string) {
+  const session = await verifySession();
+  if (!session) {
+    return { success: false, error: "Não autorizado" };
+  }
+
   try {
     await prisma.setup.delete({
       where: { id },
@@ -133,6 +167,11 @@ export async function updateCategoria(
   id: string,
   data: { nome: string; slug: string; icone?: string; descricao?: string }
 ) {
+  const session = await verifySession();
+  if (!session) {
+    return { success: false, error: "Não autorizado" };
+  }
+
   try {
     await prisma.categoria.update({
       where: { id },
