@@ -176,13 +176,13 @@ body {
 
 /* Masonry grid with CSS columns */
 .masonry-grid {
-  column-count: 1;
-  column-gap: 16px;
+  column-count: 2;
+  column-gap: 12px;
 }
 
 .masonry-item {
   break-inside: avoid;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 @media (min-width: 640px) {
