@@ -29,8 +29,8 @@
   --space-xl: 80px;
   --space-2xl: 120px;
 
-  /* Font family - Apple system fonts */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* Font family - Nunito Sans (similar to Avenir) */
+  --font-sans: var(--font-nunito-sans), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "SF Mono", Monaco, Consolas, monospace;
 
   /* Border radius */
