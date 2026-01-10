@@ -34,7 +34,7 @@ export function AdminHeader() {
           {/* Logo */}
           <Link href="/admin" className="flex items-center gap-2">
             <span className="text-xl font-semibold text-[var(--text-primary)]">
-              SetupsGrid
+              Gridiz
             </span>
             <span className="text-xs font-medium text-[var(--text-secondary)] bg-[var(--background-tertiary)] px-2 py-1 rounded-md">
               Admin

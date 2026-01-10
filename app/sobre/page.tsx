@@ -4,9 +4,9 @@ import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sobre - SetupsGrid",
+  title: "Sobre - Gridiz",
   description:
-    "Conheça o SetupsGrid. Curamos os melhores setups da internet e organizamos tudo em um só lugar, com links diretos para você comprar.",
+    "Conheça o Gridiz. Curamos os melhores setups da internet e organizamos tudo em um só lugar, com links diretos para você comprar.",
 };
 
 export default function SobrePage() {
@@ -44,7 +44,7 @@ export default function SobrePage() {
             {/* Intro */}
             <div className="space-y-4">
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                O SetupsGrid nasceu de uma ideia simples: todo mundo merece um
+                O Gridiz nasceu de uma ideia simples: todo mundo merece um
                 setup/workspace que inspire produtividade, criatividade e
                 bem-estar.
               </p>
@@ -56,7 +56,7 @@ export default function SobrePage() {
                 fica a pergunta: &quot;onde compro isso?&quot;
               </p>
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                Foi para resolver esse problema que criamos o SetupsGrid.
+                Foi para resolver esse problema que criamos o Gridiz.
               </p>
             </div>
 
@@ -129,7 +129,7 @@ export default function SobrePage() {
                 compra através deles, sem nenhum custo adicional para você.
               </p>
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                Essa é a forma como mantemos o SetupsGrid funcionando e gratuito
+                Essa é a forma como mantemos o Gridiz funcionando e gratuito
                 para todos.
               </p>
             </div>
@@ -156,10 +156,10 @@ export default function SobrePage() {
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
                 E-mail:{" "}
                 <a
-                  href="mailto:contato@setupsgrid.com"
+                  href="mailto:gridiz@gridiz.com"
                   className="text-[var(--text-primary)] hover:underline"
                 >
-                  contato@setupsgrid.com
+                  gridiz@gridiz.com
                 </a>
               </p>
             </div>
@@ -167,7 +167,7 @@ export default function SobrePage() {
             {/* Slogan */}
             <div className="pt-8 border-t border-[var(--border)]">
               <p className="text-body-large text-[var(--text-primary)] font-medium">
-                SetupsGrid — Inspire. Descubra. Monte.
+                Gridiz — Inspire. Descubra. Monte.
               </p>
             </div>
           </div>

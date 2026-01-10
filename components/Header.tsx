@@ -32,7 +32,7 @@ export function Header({ categoriaAtiva }: HeaderProps) {
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <span className="text-[21px] font-semibold text-[var(--text-primary)]">
-              SetupsGrid
+              Gridiz
             </span>
           </Link>
 

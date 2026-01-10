@@ -4,9 +4,9 @@ import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso - SetupsGrid",
+  title: "Termos de Uso - Gridiz",
   description:
-    "Leia os Termos de Uso do SetupsGrid. Informações sobre uso da plataforma, direitos e responsabilidades.",
+    "Leia os Termos de Uso do Gridiz. Informações sobre uso da plataforma, direitos e responsabilidades.",
 };
 
 export default function TermosPage() {
@@ -44,13 +44,13 @@ export default function TermosPage() {
             {/* Intro */}
             <div className="space-y-4">
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                Bem-vindo ao SetupsGrid! Estes Termos de Uso (&quot;Termos&quot;)
-                regem o acesso e uso do site setupsgrid.com (&quot;Plataforma&quot;,
-                &quot;Site&quot; ou &quot;SetupsGrid&quot;), operado por Anma
+                Bem-vindo ao Gridiz! Estes Termos de Uso (&quot;Termos&quot;)
+                regem o acesso e uso do site gridiz.com (&quot;Plataforma&quot;,
+                &quot;Site&quot; ou &quot;Gridiz&quot;), operado por Anma
                 (&quot;nos&quot;, &quot;nosso&quot; ou &quot;Empresa&quot;).
               </p>
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                Ao acessar ou utilizar o SetupsGrid, voce concorda em cumprir e
+                Ao acessar ou utilizar o Gridiz, voce concorda em cumprir e
                 estar vinculado a estes Termos. Se voce nao concordar com qualquer
                 parte destes Termos, nao devera acessar ou utilizar a Plataforma.
               </p>
@@ -62,7 +62,7 @@ export default function TermosPage() {
                 1. Descricao do Servico
               </h2>
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                O SetupsGrid e uma plataforma online de inspiracao e curadoria de
+                O Gridiz e uma plataforma online de inspiracao e curadoria de
                 workspaces e setups, que oferece:
               </p>
               <ul className="list-disc list-inside space-y-2 text-body text-[var(--text-secondary)]">
@@ -82,7 +82,7 @@ export default function TermosPage() {
                 2. Aceitacao dos Termos
               </h2>
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                Ao utilizar o SetupsGrid, voce declara que:
+                Ao utilizar o Gridiz, voce declara que:
               </p>
               <ul className="list-disc list-inside space-y-2 text-body text-[var(--text-secondary)]">
                 <li>
@@ -152,7 +152,7 @@ export default function TermosPage() {
                 <p className="text-body text-[var(--text-secondary)] leading-relaxed">
                   Todo o conteudo disponibilizado na Plataforma, incluindo textos,
                   imagens, graficos, logotipos, icones, fotografias, compilacoes de
-                  dados e software, e de propriedade do SetupsGrid ou de seus
+                  dados e software, e de propriedade do Gridiz ou de seus
                   licenciadores e esta protegido pelas leis brasileiras e
                   internacionais de propriedade intelectual.
                 </p>
@@ -220,7 +220,7 @@ export default function TermosPage() {
                     para tal conteudo
                   </li>
                   <li>
-                    Concede ao SetupsGrid uma licenca mundial, nao exclusiva,
+                    Concede ao Gridiz uma licenca mundial, nao exclusiva,
                     gratuita, sublicenciavel e transferivel para usar, reproduzir,
                     modificar, adaptar, publicar, traduzir, distribuir e exibir tal
                     conteudo
@@ -287,7 +287,7 @@ export default function TermosPage() {
                   6.1. Programa de Afiliados
                 </h3>
                 <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                  O SetupsGrid participa de programas de afiliados de diversas lojas
+                  O Gridiz participa de programas de afiliados de diversas lojas
                   e plataformas de e-commerce. Isso significa que:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-body text-[var(--text-secondary)]">
@@ -321,7 +321,7 @@ export default function TermosPage() {
                 <p className="text-body text-[var(--text-secondary)] leading-relaxed">
                   Ao clicar em links de produtos e realizar compras, voce estara
                   estabelecendo uma relacao comercial direta com a loja ou
-                  marketplace de destino. O SetupsGrid nao e parte dessa transacao e
+                  marketplace de destino. O Gridiz nao e parte dessa transacao e
                   nao se responsabiliza por:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-body text-[var(--text-secondary)]">
@@ -396,7 +396,7 @@ export default function TermosPage() {
                 9. Indenizacao
               </h2>
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                Voce concorda em defender, indenizar e isentar o SetupsGrid, seus
+                Voce concorda em defender, indenizar e isentar o Gridiz, seus
                 diretores, funcionarios, agentes e parceiros de quaisquer
                 reclamacoes, responsabilidades, danos, perdas e despesas (incluindo
                 honorarios advocaticios) decorrentes de:
@@ -483,7 +483,7 @@ export default function TermosPage() {
                   12.4. Renuncia
                 </h3>
                 <p className="text-body text-[var(--text-secondary)] leading-relaxed">
-                  A falha do SetupsGrid em exercer ou fazer cumprir qualquer direito
+                  A falha do Gridiz em exercer ou fazer cumprir qualquer direito
                   ou disposicao destes Termos nao constituira renuncia a tal direito
                   ou disposicao.
                 </p>
@@ -495,7 +495,7 @@ export default function TermosPage() {
                 </h3>
                 <p className="text-body text-[var(--text-secondary)] leading-relaxed">
                   Estes Termos constituem o acordo integral entre voce e o
-                  SetupsGrid em relacao ao uso da Plataforma e substituem quaisquer
+                  Gridiz em relacao ao uso da Plataforma e substituem quaisquer
                   acordos anteriores.
                 </p>
               </div>
@@ -510,10 +510,10 @@ export default function TermosPage() {
               </p>
               <ul className="list-none space-y-2 text-body text-[var(--text-secondary)]">
                 <li>
-                  <strong>E-mail:</strong> contato@setupsgrid.com
+                  <strong>E-mail:</strong> contato@gridiz.com
                 </li>
                 <li>
-                  <strong>Site:</strong> setupsgrid.com
+                  <strong>Site:</strong> gridiz.com
                 </li>
               </ul>
             </div>

@@ -127,7 +127,7 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <span className="text-[21px] font-semibold text-[var(--text-primary)]">
-              SetupsGrid
+              Gridiz
             </span>
           </Link>
 

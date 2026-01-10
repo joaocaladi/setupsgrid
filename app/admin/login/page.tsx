@@ -40,7 +40,7 @@ export default function LoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
-              SetupsGrid
+              Gridiz
             </h1>
             <p className="text-sm text-[var(--text-secondary)] mt-1">Painel de Administração</p>
           </div>
@@ -67,7 +67,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent transition-all text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
-                placeholder="admin@setupsgrid.com"
+                placeholder="admin@gridiz.com"
               />
             </div>
 

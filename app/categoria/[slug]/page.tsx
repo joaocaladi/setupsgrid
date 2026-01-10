@@ -16,12 +16,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!categoria) {
     return {
-      title: "Categoria não encontrada - SetupsGrid",
+      title: "Categoria não encontrada - Gridiz",
     };
   }
 
   return {
-    title: `${categoria.nome} - SetupsGrid`,
+    title: `${categoria.nome} - Gridiz`,
     description:
       categoria.descricao ||
       `Explore setups ${categoria.nome.toLowerCase()} para inspirar seu workspace.`,

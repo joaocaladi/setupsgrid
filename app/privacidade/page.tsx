@@ -4,9 +4,9 @@ import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Politica de Privacidade - SetupsGrid",
+  title: "Politica de Privacidade - Gridiz",
   description:
-    "Leia a Politica de Privacidade do SetupsGrid. Informacoes sobre como coletamos, usamos e protegemos seus dados pessoais.",
+    "Leia a Politica de Privacidade do Gridiz. Informacoes sobre como coletamos, usamos e protegemos seus dados pessoais.",
 };
 
 export default function PrivacidadePage() {
@@ -45,10 +45,10 @@ export default function PrivacidadePage() {
             <div className="space-y-4">
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
                 A sua privacidade e importante para nos. Esta Politica de
-                Privacidade explica como o SetupsGrid (&quot;nos&quot;,
+                Privacidade explica como o Gridiz (&quot;nos&quot;,
                 &quot;nosso&quot; ou &quot;Plataforma&quot;), operado por Anma,
                 coleta, usa, armazena e protege suas informacoes pessoais quando
-                voce utiliza o site setupsgrid.com.
+                voce utiliza o site gridiz.com.
               </p>
               <p className="text-body text-[var(--text-secondary)] leading-relaxed">
                 Esta politica foi elaborada em conformidade com a Lei Geral de
@@ -532,10 +532,10 @@ export default function PrivacidadePage() {
               </p>
               <ul className="list-none space-y-2 text-body text-[var(--text-secondary)]">
                 <li>
-                  <strong>E-mail:</strong> contato@setupsgrid.com
+                  <strong>E-mail:</strong> contato@gridiz.com
                 </li>
                 <li>
-                  <strong>Site:</strong> setupsgrid.com
+                  <strong>Site:</strong> gridiz.com
                 </li>
               </ul>
             </div>

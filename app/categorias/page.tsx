@@ -5,9 +5,9 @@ import { getGruposWithCategorias } from "@/lib/data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Categorias - SetupsGrid",
+  title: "Categorias - Gridiz",
   description:
-    "Explore todas as categorias de setups do SetupsGrid. Encontre inspiração por profissão, configuração, estética, ambiente e muito mais.",
+    "Explore todas as categorias de setups do Gridiz. Encontre inspiração por profissão, configuração, estética, ambiente e muito mais.",
 };
 
 export default async function CategoriasPage() {

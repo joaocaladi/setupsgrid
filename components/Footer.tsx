@@ -42,7 +42,7 @@ export function Footer() {
           {/* Sobre */}
           <div>
             <h3 className="text-xs font-semibold text-[var(--text-primary)] mb-4">
-              SetupsGrid
+              Gridiz
             </h3>
             <ul className="space-y-3">
               {links.map((link) => (
@@ -69,7 +69,7 @@ export function Footer() {
         <div className="container-wide py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs text-[var(--text-secondary)]">
-              Copyright © {new Date().getFullYear()} SetupsGrid. Todos os direitos reservados.
+              Copyright © {new Date().getFullYear()} Gridiz. Todos os direitos reservados.
             </p>
             <div className="flex items-center gap-6">
               <Link

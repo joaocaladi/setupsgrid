@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SetupsGrid - Inspiração para seu Setup",
+  title: "Gridiz - Inspiração para seu Setup",
   description:
     "Descubra setups incríveis e encontre os produtos perfeitos para montar seu workspace dos sonhos.",
   keywords: ["setup", "workspace", "desk setup", "home office", "inspiração"],

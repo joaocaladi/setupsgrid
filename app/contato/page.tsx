@@ -4,9 +4,9 @@ import { ChevronLeft, Mail, MessageCircle } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contato - SetupsGrid",
+  title: "Contato - Gridiz",
   description:
-    "Entre em contato com o SetupsGrid. Estamos aqui para ajudar com dúvidas, sugestões ou parcerias.",
+    "Entre em contato com o Gridiz. Estamos aqui para ajudar com dúvidas, sugestões ou parcerias.",
 };
 
 export default function ContatoPage() {
@@ -44,7 +44,7 @@ export default function ContatoPage() {
             <div className="flex flex-col sm:flex-row gap-6">
               {/* Email */}
               <a
-                href="mailto:contato@setupsgrid.com"
+                href="mailto:gridiz@gridiz.com"
                 className="flex items-center gap-3 px-6 py-4 rounded-xl bg-[var(--background-secondary)] border border-[var(--border)] hover:border-[var(--text-secondary)] transition-colors group"
               >
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--background-tertiary)]">
@@ -53,7 +53,7 @@ export default function ContatoPage() {
                 <div>
                   <p className="text-xs text-[var(--text-secondary)]">Email</p>
                   <p className="text-sm font-medium text-[var(--text-primary)]">
-                    contato@setupsgrid.com
+                    gridiz@gridiz.com
                   </p>
                 </div>
               </a>

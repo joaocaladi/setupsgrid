@@ -3,8 +3,8 @@ import { AdminHeader } from "@/components/admin/AdminHeader";
 import { verifySession } from "@/lib/auth";
 
 export const metadata = {
-  title: "Admin - SetupsGrid",
-  description: "Painel de administração do SetupsGrid",
+  title: "Admin - Gridiz",
+  description: "Painel de administração do Gridiz",
 };
 
 export default async function AdminLayout({

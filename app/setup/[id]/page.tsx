@@ -16,12 +16,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!setup) {
     return {
-      title: "Setup não encontrado - SetupsGrid",
+      title: "Setup não encontrado - Gridiz",
     };
   }
 
   return {
-    title: `${setup.titulo} - SetupsGrid`,
+    title: `${setup.titulo} - Gridiz`,
     description:
       setup.descricao ||
       `Confira este setup incrível e descubra todos os produtos usados.`,
