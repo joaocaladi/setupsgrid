@@ -510,7 +510,7 @@ export default function TermosPage() {
               </p>
               <ul className="list-none space-y-2 text-body text-[var(--text-secondary)]">
                 <li>
-                  <strong>E-mail:</strong> contato@gridiz.com
+                  <strong>E-mail:</strong> gridiz@gridiz.com
                 </li>
                 <li>
                   <strong>Site:</strong> gridiz.com
