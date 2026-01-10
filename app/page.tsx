@@ -9,20 +9,8 @@ export default async function HomePage() {
       <HeaderWrapper />
 
       <main className="flex-1">
-        {/* Hero Section - Apple style with generous spacing */}
-        <section className="section-padding text-center">
-          <div className="container-text">
-            <h1 className="text-display text-[var(--text-primary)] mb-6">
-              Inspiração.
-            </h1>
-            <p className="text-body-large text-[var(--text-secondary)] max-w-[680px] mx-auto">
-              Descubra setups incríveis e encontre os produtos perfeitos.
-            </p>
-          </div>
-        </section>
-
         {/* Setups Grid */}
-        <section className="pb-20 md:pb-32">
+        <section className="pt-8 md:pt-12 pb-20 md:pb-32">
           <div className="container-wide">
             {/* Section header */}
             <div className="flex items-baseline justify-between mb-8">
