@@ -27,16 +27,6 @@ interface HeaderClientProps {
   grupos?: GrupoCategoria[];
 }
 
-// Mapeamento de nomes curtos para o header
-const nomesAbreviados: Record<string, string> = {
-  "Por Profissão": "Profissão",
-  "Por Configuração": "Config",
-  "Por Estética": "Estética",
-  "Por Ambiente": "Ambiente",
-  "Por Elementos": "Elementos",
-  "Por Orçamento": "Orçamento",
-};
-
 export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps) {
   const { theme, toggleTheme } = useTheme();
   const [activeGrupo, setActiveGrupo] = useState<string | null>(null);
@@ -162,7 +152,7 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
               <button
                 key={grupo.id}
                 className={cn(
-                  "text-xs font-normal transition-colors duration-300",
+                  "text-xs font-normal transition-colors duration-300 cursor-pointer",
                   activeGrupo === grupo.id
                     ? "text-[var(--text-primary)]"
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -170,7 +160,7 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
                 onMouseEnter={() => handleMenuEnter(grupo.id)}
                 onClick={() => setActiveGrupo(activeGrupo === grupo.id ? null : grupo.id)}
               >
-                {nomesAbreviados[grupo.nome] || grupo.nome}
+                {grupo.nome}
               </button>
             ))}
           </div>
@@ -287,7 +277,7 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
                   href={`/categorias#${activeGrupoData.slug}`}
                   className="inline-flex items-center gap-1 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                 >
-                  Ver todas de {activeGrupoData.nome}
+                  Ver todas as categorias
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
