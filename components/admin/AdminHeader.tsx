@@ -33,6 +33,23 @@ export function AdminHeader() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/admin" className="flex items-center gap-2">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="text-[var(--text-primary)]"
+            >
+              <rect x="1" y="1" width="6" height="6" rx="0.5" />
+              <rect x="9" y="1" width="6" height="6" rx="0.5" />
+              <rect x="17" y="1" width="6" height="6" rx="0.5" />
+              <rect x="1" y="9" width="6" height="6" rx="0.5" />
+              <rect x="9" y="9" width="6" height="6" rx="0.5" />
+              <rect x="17" y="9" width="6" height="6" rx="0.5" />
+              <rect x="1" y="17" width="6" height="6" rx="0.5" />
+              <rect x="9" y="17" width="6" height="6" rx="0.5" />
+              <rect x="17" y="17" width="6" height="6" rx="0.5" />
+            </svg>
             <span className="text-xl font-semibold text-[var(--text-primary)]">
               Gridiz
             </span>
