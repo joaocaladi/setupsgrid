@@ -291,10 +291,10 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
               {/* Link para ver todas */}
               <div className="mt-8 pt-6 border-t border-[var(--border)]">
                 <Link
-                  href={`/categorias#${activeGrupoData.slug}`}
+                  href={`/categoria/grupo/${activeGrupoData.slug}`}
                   className="inline-flex items-center gap-1 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                 >
-                  Ver todas as categorias
+                  Ver todas {activeGrupoData.nome}
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>

@@ -1,10 +1,13 @@
 import Link from "next/link";
 
-const categorias = [
-  { nome: "Minimalista", slug: "minimalista" },
-  { nome: "Gamer", slug: "gamer" },
-  { nome: "Trabalho", slug: "trabalho" },
-  { nome: "Moderno", slug: "moderno" },
+const explorar = [
+  { nome: "Categorias", href: "/categorias" },
+  { nome: "Por Profissão", href: "/categoria/grupo/profissao" },
+  { nome: "Por Configuração", href: "/categoria/grupo/configuracao" },
+  { nome: "Por Estética", href: "/categoria/grupo/estetica" },
+  { nome: "Por Ambiente", href: "/categoria/grupo/ambiente" },
+  { nome: "Por Elementos", href: "/categoria/grupo/elementos" },
+  { nome: "Por Orçamento", href: "/categoria/grupo/orcamento" },
 ];
 
 const links = [
@@ -26,13 +29,13 @@ export function Footer() {
               Explorar
             </h3>
             <ul className="space-y-3">
-              {categorias.map((cat) => (
-                <li key={cat.slug}>
+              {explorar.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={`/categoria/${cat.slug}`}
+                    href={item.href}
                     className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   >
-                    {cat.nome}
+                    {item.nome}
                   </Link>
                 </li>
               ))}

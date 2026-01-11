@@ -160,3 +160,36 @@ export async function getCategoriaWithGrupo(slug: string) {
     return null;
   }
 }
+
+export async function getGrupoBySlug(slug: string) {
+  if (USE_MOCK) {
+    return null;
+  }
+
+  try {
+    const grupo = await prisma.grupoCategoria.findUnique({
+      where: { slug },
+      include: {
+        categorias: {
+          orderBy: { ordem: "asc" },
+          include: {
+            _count: {
+              select: { setups: true },
+            },
+            setups: {
+              include: {
+                categorias: true,
+                produtos: true,
+              },
+              orderBy: [{ destaque: "desc" }, { createdAt: "desc" }],
+            },
+          },
+        },
+      },
+    });
+    return grupo;
+  } catch {
+    console.warn("Database unavailable");
+    return null;
+  }
+}
