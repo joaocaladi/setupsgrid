@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { Moon, Sun, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
+import { SearchModal } from "./SearchModal";
 
 interface Categoria {
   id: string;
@@ -30,6 +31,7 @@ interface HeaderClientProps {
 export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps) {
   const { theme, toggleTheme } = useTheme();
   const [activeGrupo, setActiveGrupo] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const megaMenuRef = useRef<HTMLDivElement>(null);
@@ -119,6 +121,19 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Keyboard shortcut for search (Cmd/Ctrl + K)
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 glass border-b border-[var(--border)]">
       <div className="container-wide">
@@ -199,8 +214,9 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
 
             {/* Search */}
             <button
+              onClick={() => setSearchOpen(true)}
               className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-              aria-label="Buscar"
+              aria-label="Buscar (Cmd+K)"
             >
               <svg
                 width="18"
@@ -302,6 +318,9 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
           </div>
         </>
       )}
+
+      {/* Search Modal */}
+      {searchOpen && <SearchModal onClose={() => setSearchOpen(false)} />}
     </header>
   );
 }
