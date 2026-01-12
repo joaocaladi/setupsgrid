@@ -50,20 +50,6 @@ export function SetupCard({ setup, index = 0 }: SetupCardProps) {
               </div>
             )}
 
-            {/* Categories - simple pills */}
-            {setup.categorias.length > 0 && (
-              <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                {setup.categorias.slice(0, 2).map((cat: { id: string; nome: string }) => (
-                  <span
-                    key={cat.id}
-                    className="category-pill"
-                  >
-                    {cat.nome}
-                  </span>
-                ))}
-              </div>
-            )}
-
             {/* Info overlay - bottom */}
             <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
               <h3 className="text-[15px] font-semibold text-white line-clamp-2 mb-0.5">
