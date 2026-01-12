@@ -31,12 +31,12 @@ export function SetupGallery({
   return (
     <div className="space-y-4">
       {/* Imagem Principal */}
-      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--background-tertiary)]">
+      <div className="relative rounded-2xl overflow-hidden bg-[var(--background-tertiary)]">
         {isVideo && videoUrl ? (
           <video
             src={videoUrl}
             controls
-            className="w-full h-full object-cover"
+            className="w-full h-auto max-h-[80vh] object-contain"
             poster={imagemPrincipal}
           />
         ) : (
@@ -44,8 +44,9 @@ export function SetupGallery({
             <Image
               src={todasImagens[imagemSelecionada]}
               alt={titulo}
-              fill
-              className="object-cover transition-opacity duration-300"
+              width={1200}
+              height={1600}
+              className="w-full h-auto max-h-[80vh] object-contain transition-opacity duration-300"
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
