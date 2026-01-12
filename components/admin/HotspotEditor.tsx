@@ -154,7 +154,7 @@ export function HotspotEditor({
         {/* Instrução */}
         <div className="absolute bottom-2 left-2 right-2 text-center">
           <span className="inline-block px-3 py-1.5 bg-black/70 text-white text-xs rounded-full">
-            Clique para posicionar "{produtoNome}"
+            Clique para posicionar &quot;{produtoNome}&quot;
           </span>
         </div>
       </div>
