@@ -73,6 +73,7 @@ export default async function SetupPage({ params }: PageProps) {
                   titulo={setup.titulo}
                   isVideo={setup.isVideo}
                   videoUrl={setup.videoUrl}
+                  produtos={setup.produtos}
                 />
               </div>
             </div>

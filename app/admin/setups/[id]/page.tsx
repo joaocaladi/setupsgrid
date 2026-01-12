@@ -44,6 +44,9 @@ export default async function EditSetupPage({ params }: PageProps) {
       loja: p.loja,
       destaque: p.destaque,
       ordem: p.ordem,
+      hotspotX: p.hotspotX,
+      hotspotY: p.hotspotY,
+      hotspotImagem: p.hotspotImagem,
     })),
   };
 

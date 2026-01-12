@@ -3,6 +3,7 @@
 import { GripVertical, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { PRODUTO_CATEGORIAS, LOJAS, type ProdutoFormData } from "@/lib/validations";
 import { ImageUpload } from "./ImageUpload";
+import { HotspotEditor } from "./HotspotEditor";
 
 interface ProductFormProps {
   produto: ProdutoFormData;
@@ -12,6 +13,8 @@ interface ProductFormProps {
   onChange: (data: ProdutoFormData) => void;
   onRemove: () => void;
   dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
+  imagemPrincipal?: string;
+  imagens?: string[];
 }
 
 export function ProductForm({
@@ -22,6 +25,8 @@ export function ProductForm({
   onChange,
   onRemove,
   dragHandleProps,
+  imagemPrincipal,
+  imagens,
 }: ProductFormProps) {
   function handleChange(field: keyof ProdutoFormData, value: unknown) {
     onChange({ ...produto, [field]: value });
@@ -197,6 +202,28 @@ export function ProductForm({
               placeholder="https://..."
             />
           </div>
+
+          {/* Hotspot Editor - só mostra se tem imagem do setup */}
+          {imagemPrincipal && (
+            <div className="pt-4 border-t border-[var(--border)]">
+              <HotspotEditor
+                imagemPrincipal={imagemPrincipal}
+                imagens={imagens}
+                hotspotX={produto.hotspotX ?? null}
+                hotspotY={produto.hotspotY ?? null}
+                hotspotImagem={produto.hotspotImagem ?? null}
+                onChange={(x, y, imagem) => {
+                  onChange({
+                    ...produto,
+                    hotspotX: x,
+                    hotspotY: y,
+                    hotspotImagem: imagem,
+                  });
+                }}
+                produtoNome={produto.nome || `Produto ${index + 1}`}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

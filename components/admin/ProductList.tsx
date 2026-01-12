@@ -25,6 +25,8 @@ import type { ProdutoFormData } from "@/lib/validations";
 interface ProductListProps {
   produtos: ProdutoFormData[];
   onChange: (produtos: ProdutoFormData[]) => void;
+  imagemPrincipal?: string;
+  imagens?: string[];
 }
 
 interface SortableItemProps {
@@ -35,6 +37,8 @@ interface SortableItemProps {
   onToggle: () => void;
   onChange: (data: ProdutoFormData) => void;
   onRemove: () => void;
+  imagemPrincipal?: string;
+  imagens?: string[];
 }
 
 function SortableItem({
@@ -45,6 +49,8 @@ function SortableItem({
   onToggle,
   onChange,
   onRemove,
+  imagemPrincipal,
+  imagens,
 }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -64,12 +70,14 @@ function SortableItem({
         onChange={onChange}
         onRemove={onRemove}
         dragHandleProps={{ ...attributes, ...listeners }}
+        imagemPrincipal={imagemPrincipal}
+        imagens={imagens}
       />
     </div>
   );
 }
 
-export function ProductList({ produtos, onChange }: ProductListProps) {
+export function ProductList({ produtos, onChange, imagemPrincipal, imagens }: ProductListProps) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(
     produtos.length > 0 ? 0 : null
   );
@@ -174,6 +182,8 @@ export function ProductList({ produtos, onChange }: ProductListProps) {
                   }
                   onChange={(data) => handleChange(index, data)}
                   onRemove={() => handleRemove(index)}
+                  imagemPrincipal={imagemPrincipal}
+                  imagens={imagens}
                 />
               ))}
             </div>

@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ProductHotspot } from "./ProductHotspot";
+import type { Produto } from "@prisma/client";
 
 interface SetupGalleryProps {
   imagemPrincipal: string;
@@ -11,6 +13,7 @@ interface SetupGalleryProps {
   titulo: string;
   isVideo?: boolean;
   videoUrl?: string | null;
+  produtos?: Produto[];
 }
 
 export function SetupGallery({
@@ -19,6 +22,7 @@ export function SetupGallery({
   titulo,
   isVideo,
   videoUrl,
+  produtos,
 }: SetupGalleryProps) {
   // Combinar imagem principal com imagens adicionais (se existirem)
   const todasImagens = imagens && imagens.length > 0
@@ -50,6 +54,17 @@ export function SetupGallery({
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
+            {/* Hotspots dos produtos */}
+            {produtos
+              ?.filter(
+                (p) =>
+                  p.hotspotX !== null &&
+                  p.hotspotY !== null &&
+                  (p.hotspotImagem ?? 0) === imagemSelecionada
+              )
+              .map((produto) => (
+                <ProductHotspot key={produto.id} produto={produto} />
+              ))}
             {isVideo && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                 <div className="bg-white rounded-full p-5 shadow-lg">

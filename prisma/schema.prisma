@@ -53,19 +53,22 @@ model Categoria {
 }
 
 model Produto {
-  id         String   @id @default(cuid())
-  nome       String
-  descricao  String?
-  categoria  String
-  imagemUrl  String?
-  preco      Float?
-  moeda      String   @default("BRL")
-  linkCompra String?
-  loja       String?
-  destaque   Boolean  @default(false)
-  ordem      Int      @default(0)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  setupId    String
-  setup      Setup    @relation(fields: [setupId], references: [id], onDelete: Cascade)
+  id            String   @id @default(cuid())
+  nome          String
+  descricao     String?
+  categoria     String
+  imagemUrl     String?
+  preco         Float?
+  moeda         String   @default("BRL")
+  linkCompra    String?
+  loja          String?
+  destaque      Boolean  @default(false)
+  ordem         Int      @default(0)
+  hotspotX      Float?
+  hotspotY      Float?
+  hotspotImagem Int?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  setupId       String
+  setup         Setup    @relation(fields: [setupId], references: [id], onDelete: Cascade)
 }

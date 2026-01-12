@@ -7,6 +7,7 @@ export { SetupCard } from "./SetupCard";
 export { SetupGrid } from "./SetupGrid";
 export { SetupGallery } from "./SetupGallery";
 export { ProductCard } from "./ProductCard";
+export { ProductHotspot } from "./ProductHotspot";
 export { CategoryBadge } from "./CategoryBadge";
 export { SearchBar } from "./SearchBar";
 export { SearchModal } from "./SearchModal";

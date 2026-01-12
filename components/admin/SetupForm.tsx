@@ -242,7 +242,12 @@ export function SetupForm({ categorias, initialData }: SetupFormProps) {
 
       {/* Seção 5: Produtos */}
       <section className="bg-[var(--background-secondary)] rounded-xl p-6 shadow-sm border border-[var(--border)]">
-        <ProductList produtos={produtos} onChange={setProdutos} />
+        <ProductList
+          produtos={produtos}
+          onChange={setProdutos}
+          imagemPrincipal={imagemUrl}
+          imagens={imagens || []}
+        />
       </section>
 
       {/* Ações */}
