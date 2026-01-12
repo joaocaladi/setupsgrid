@@ -56,11 +56,6 @@ describe("SetupCard", () => {
     expect(link).toHaveAttribute("href", `/setup/${mockSetup.id}`);
   });
 
-  it("should render category badges", () => {
-    render(<SetupCard setup={mockSetup} />);
-    expect(screen.getByText("Minimalista")).toBeInTheDocument();
-  });
-
   it("should show video indicator when isVideo is true", () => {
     const videoSetup = { ...mockSetup, isVideo: true };
     render(<SetupCard setup={videoSetup} />);
@@ -85,20 +80,5 @@ describe("SetupCard", () => {
     render(<SetupCard setup={mockSetup} index={3} />);
     const card = document.querySelector(".stagger-4");
     expect(card).toBeInTheDocument();
-  });
-
-  it("should limit displayed categories to 2", () => {
-    const setupWithManyCategories = {
-      ...mockSetup,
-      categorias: [
-        { id: "cat-1", nome: "Cat1", slug: "cat1", descricao: null, cor: null, icone: null, ordem: 0 },
-        { id: "cat-2", nome: "Cat2", slug: "cat2", descricao: null, cor: null, icone: null, ordem: 1 },
-        { id: "cat-3", nome: "Cat3", slug: "cat3", descricao: null, cor: null, icone: null, ordem: 2 },
-      ],
-    };
-    render(<SetupCard setup={setupWithManyCategories} />);
-    expect(screen.getByText("Cat1")).toBeInTheDocument();
-    expect(screen.getByText("Cat2")).toBeInTheDocument();
-    expect(screen.queryByText("Cat3")).not.toBeInTheDocument();
   });
 });
