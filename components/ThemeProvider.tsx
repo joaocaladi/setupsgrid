@@ -36,6 +36,12 @@ function subscribeToTheme(callback: () => void): () => void {
 
   callback();
 
+  // Listener para mudanças de tema manual (via toggleTheme)
+  const handleThemeChange = () => {
+    callback();
+  };
+  window.addEventListener("themechange", handleThemeChange);
+
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const handleChange = (e: MediaQueryListEvent) => {
     if (!localStorage.getItem("theme")) {
@@ -46,7 +52,10 @@ function subscribeToTheme(callback: () => void): () => void {
   };
 
   mediaQuery.addEventListener("change", handleChange);
-  return () => mediaQuery.removeEventListener("change", handleChange);
+  return () => {
+    mediaQuery.removeEventListener("change", handleChange);
+    window.removeEventListener("themechange", handleThemeChange);
+  };
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
