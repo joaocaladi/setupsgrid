@@ -87,7 +87,7 @@ export const LOJAS = [
   "Magalu",
   "Pichau",
   "Terabyte",
-  "ANMA Setups",
+  "Anma",
   "AliExpress",
   "Apple",
   "Outro",
