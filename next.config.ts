@@ -35,67 +35,10 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
+      // Permitir qualquer imagem HTTPS (necessário para extrair imagens de e-commerces)
       {
         protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.supabase.co",
-        pathname: "/storage/v1/object/public/**",
-      },
-      // Mercado Livre
-      {
-        protocol: "https",
-        hostname: "*.mlstatic.com",
-        pathname: "/**",
-      },
-      // Amazon Brasil
-      {
-        protocol: "https",
-        hostname: "*.media-amazon.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "m.media-amazon.com",
-        pathname: "/**",
-      },
-      // Kabum
-      {
-        protocol: "https",
-        hostname: "images.kabum.com.br",
-        pathname: "/**",
-      },
-      // Magazine Luiza
-      {
-        protocol: "https",
-        hostname: "*.magazineluiza.com.br",
-        pathname: "/**",
-      },
-      // Americanas/Submarino/Shoptime
-      {
-        protocol: "https",
-        hostname: "images-americanas.b2w.io",
-        pathname: "/**",
-      },
-      // Pichau
-      {
-        protocol: "https",
-        hostname: "media.pichau.com.br",
-        pathname: "/**",
-      },
-      // Terabyte
-      {
-        protocol: "https",
-        hostname: "img.terabyteshop.com.br",
-        pathname: "/**",
-      },
-      // AliExpress
-      {
-        protocol: "https",
-        hostname: "*.alicdn.com",
+        hostname: "**",
         pathname: "/**",
       },
     ],

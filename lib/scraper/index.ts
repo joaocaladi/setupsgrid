@@ -7,6 +7,7 @@ import {
   extractPriceFromHtml,
   mergeExtractedData,
 } from "./parsers";
+import { findStoreByDomain, getStoreName } from "./stores";
 
 const FETCH_TIMEOUT = 10000; // 10 segundos
 
@@ -87,6 +88,11 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
   const cleanedUrl = cleanUrl(url);
   const store = extractDomain(cleanedUrl);
 
+  // Buscar configuração da loja
+  const storeConfig = findStoreByDomain(cleanedUrl);
+  const storeName = storeConfig?.name || getStoreName(cleanedUrl);
+  const storeReliability = storeConfig?.reliability || "unknown";
+
   try {
     // Fetch com timeout
     const controller = new AbortController();
@@ -104,7 +110,7 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
       return {
         success: false,
         error: `Não foi possível acessar o site (${response.status}). Preencha manualmente.`,
-        partialData: { store, originalUrl: cleanedUrl },
+        partialData: { store, storeName, storeReliability, originalUrl: cleanedUrl },
       };
     }
 
@@ -115,7 +121,7 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
       return {
         success: false,
         error: "Resposta inválida do site. Preencha manualmente.",
-        partialData: { store, originalUrl: cleanedUrl },
+        partialData: { store, storeName, storeReliability, originalUrl: cleanedUrl },
       };
     }
 
@@ -124,7 +130,7 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
       return {
         success: false,
         error: "Este site bloqueou a extração automática. Preencha os dados manualmente.",
-        partialData: { store, originalUrl: cleanedUrl },
+        partialData: { store, storeName, storeReliability, originalUrl: cleanedUrl },
       };
     }
 
@@ -144,6 +150,8 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
         error: "Não foi possível extrair informações do produto. Preencha manualmente.",
         partialData: {
           store,
+          storeName,
+          storeReliability,
           originalUrl: cleanedUrl,
           ...mergedData,
         },
@@ -157,6 +165,8 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
         error: "Não foi possível identificar o produto. Preencha os dados manualmente.",
         partialData: {
           store,
+          storeName,
+          storeReliability,
           originalUrl: cleanedUrl,
           ...mergedData,
         },
@@ -170,6 +180,8 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
       priceValue: mergedData.priceValue ?? null,
       image: mergedData.image ?? null,
       store,
+      storeName,
+      storeReliability,
       originalUrl: cleanedUrl,
     };
 
@@ -184,7 +196,7 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
         return {
           success: false,
           error: "Tempo esgotado. Tente novamente ou preencha manualmente.",
-          partialData: { store, originalUrl: cleanedUrl },
+          partialData: { store, storeName, storeReliability, originalUrl: cleanedUrl },
         };
       }
 
@@ -193,7 +205,7 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
         return {
           success: false,
           error: "Não foi possível acessar o site. Preencha manualmente.",
-          partialData: { store, originalUrl: cleanedUrl },
+          partialData: { store, storeName, storeReliability, originalUrl: cleanedUrl },
         };
       }
     }
@@ -201,7 +213,7 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
     return {
       success: false,
       error: "Erro ao extrair dados. Preencha manualmente.",
-      partialData: { store, originalUrl: cleanedUrl },
+      partialData: { store, storeName, storeReliability, originalUrl: cleanedUrl },
     };
   }
 }

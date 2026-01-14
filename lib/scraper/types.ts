@@ -4,6 +4,8 @@ export interface ExtractedProduct {
   priceValue: number | null;
   image: string | null;
   store: string;
+  storeName: string;
+  storeReliability: "high" | "medium" | "low" | "unknown";
   originalUrl: string;
 }
 
