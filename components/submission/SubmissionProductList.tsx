@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { Plus } from "lucide-react";
 import {
   DndContext,
@@ -80,8 +80,12 @@ export function SubmissionProductList({
   products,
   onChange,
 }: SubmissionProductListProps) {
-  // SSR check - initialized to true only on client
-  const [mounted] = useState(() => typeof window !== "undefined");
+  // useSyncExternalStore para SSR-safe mounted check
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor),

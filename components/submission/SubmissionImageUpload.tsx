@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { X, Loader2, Plus, ImageIcon, GripVertical } from "lucide-react";
 import imageCompression from "browser-image-compression";
@@ -109,15 +109,16 @@ export function SubmissionImageUpload({
   submissionId,
   maxImages = 10,
 }: SubmissionImageUploadProps) {
-  const [mounted, setMounted] = useState(false);
+  // useSyncExternalStore para SSR-safe mounted check
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
