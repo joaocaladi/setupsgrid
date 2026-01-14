@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { Moon, Sun, ChevronRight } from "lucide-react";
+import { Moon, Sun, ChevronRight, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
 import { SearchModal } from "./SearchModal";
@@ -197,8 +197,17 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
             ))}
           </div>
 
-          {/* Right side - Theme toggle and Search */}
+          {/* Right side - Submit setup, Theme toggle and Search */}
           <div className="flex items-center gap-3">
+            {/* Submit setup */}
+            <Link
+              href="/enviar-setup"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0071e3] hover:bg-[#0077ED] text-white text-xs font-medium transition-colors"
+            >
+              <Upload className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Enviar Setup</span>
+            </Link>
+
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}

@@ -17,6 +17,10 @@ const links = [
   { nome: "Termos", href: "/termos" },
 ];
 
+const comunidade = [
+  { nome: "Enviar seu Setup", href: "/enviar-setup" },
+];
+
 export function Footer() {
   return (
     <footer className="bg-[var(--background-tertiary)] border-t border-[var(--border)]">
@@ -61,8 +65,26 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Comunidade */}
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--text-primary)] mb-4">
+              Comunidade
+            </h3>
+            <ul className="space-y-3">
+              {comunidade.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                  >
+                    {item.nome}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Espaço vazio em desktop */}
-          <div className="hidden md:block" />
           <div className="hidden md:block" />
         </div>
       </div>
