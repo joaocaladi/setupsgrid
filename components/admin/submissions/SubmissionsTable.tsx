@@ -132,9 +132,12 @@ export function SubmissionsTable({ submissions }: SubmissionsTableProps) {
                           </div>
                         )}
                         <div>
-                          <p className="text-sm font-medium text-[var(--text-primary)] line-clamp-1">
+                          <Link
+                            href={`/admin/submissions/${submission.id}`}
+                            className="text-sm font-medium text-[var(--text-primary)] line-clamp-1 hover:text-[#0071e3] transition-colors"
+                          >
                             {submission.title || "Sem título"}
-                          </p>
+                          </Link>
                           <p className="text-xs text-[var(--text-secondary)]">
                             {submission.images.length} imagem
                             {submission.images.length !== 1 ? "ns" : ""}
