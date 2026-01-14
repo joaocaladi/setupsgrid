@@ -31,16 +31,26 @@ export function LinkCheckHistoryModal({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isOpen && productId) {
-      setLoading(true);
-      getProductLinkHistory(productId)
-        .then((data) => {
+    if (!isOpen || !productId) return;
+
+    let cancelled = false;
+    setLoading(true);
+
+    getProductLinkHistory(productId)
+      .then((data) => {
+        if (!cancelled) {
           setHistory(data);
-        })
-        .finally(() => {
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
           setLoading(false);
-        });
-    }
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [isOpen, productId]);
 
   if (!isOpen) return null;

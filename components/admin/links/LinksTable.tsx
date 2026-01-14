@@ -6,7 +6,6 @@ import Link from "next/link";
 import {
   ExternalLink,
   RefreshCw,
-  MoreHorizontal,
   Search,
   Clock,
 } from "lucide-react";
