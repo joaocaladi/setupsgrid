@@ -16,7 +16,7 @@ function getSupabase(): SupabaseClient {
   return supabase;
 }
 
-export type StorageBucket = "setups" | "produtos";
+export type StorageBucket = "setups" | "produtos" | "setup-submissions";
 
 export async function uploadImage(
   file: File,
@@ -49,4 +49,30 @@ export async function deleteImage(url: string, bucket: StorageBucket) {
   if (error) {
     console.error("Erro ao deletar imagem:", error);
   }
+}
+
+export async function uploadSubmissionImage(
+  file: File,
+  submissionId: string
+): Promise<string> {
+  const client = getSupabase();
+  const ext = file.name.split(".").pop();
+  const fileName = `submissions/${submissionId}/${crypto.randomUUID()}.${ext}`;
+
+  const { error } = await client.storage
+    .from("setup-submissions")
+    .upload(fileName, file, {
+      cacheControl: "31536000",
+      upsert: false,
+    });
+
+  if (error) {
+    console.error("Erro ao fazer upload:", error);
+    throw new Error("Erro ao fazer upload da imagem");
+  }
+
+  const { data } = client.storage
+    .from("setup-submissions")
+    .getPublicUrl(fileName);
+  return data.publicUrl;
 }

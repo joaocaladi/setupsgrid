@@ -1,4 +1,11 @@
-import type { Setup, Categoria, Produto } from "@prisma/client";
+import type {
+  Setup,
+  Categoria,
+  Produto,
+  SetupSubmission,
+  SetupSubmissionImage,
+  SetupSubmissionProduct,
+} from "@prisma/client";
 
 // Types com relações incluídas
 export type SetupWithRelations = Setup & {
@@ -10,5 +17,17 @@ export type CategoriaWithSetups = Categoria & {
   setups: Setup[];
 };
 
+export type SubmissionWithRelations = SetupSubmission & {
+  images: SetupSubmissionImage[];
+  products: SetupSubmissionProduct[];
+};
+
 // Re-export dos tipos base do Prisma
-export type { Setup, Categoria, Produto };
+export type {
+  Setup,
+  Categoria,
+  Produto,
+  SetupSubmission,
+  SetupSubmissionImage,
+  SetupSubmissionProduct,
+};

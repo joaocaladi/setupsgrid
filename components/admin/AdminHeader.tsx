@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FolderOpen, LogOut, Sun, Moon } from "lucide-react";
+import { LayoutDashboard, FolderOpen, LogOut, Sun, Moon, Inbox } from "lucide-react";
 import { logout } from "@/app/admin/actions";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -17,9 +17,19 @@ const navItems = [
     href: "/admin/categorias",
     icon: FolderOpen,
   },
+  {
+    label: "Submissões",
+    href: "/admin/submissions",
+    icon: Inbox,
+    showBadge: true,
+  },
 ];
 
-export function AdminHeader() {
+interface AdminHeaderProps {
+  pendingSubmissionsCount?: number;
+}
+
+export function AdminHeader({ pendingSubmissionsCount = 0 }: AdminHeaderProps) {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
 
@@ -66,6 +76,7 @@ export function AdminHeader() {
                   ? pathname === "/admin"
                   : pathname.startsWith(item.href);
               const Icon = item.icon;
+              const showBadge = item.showBadge && pendingSubmissionsCount > 0;
 
               return (
                 <Link
@@ -79,6 +90,11 @@ export function AdminHeader() {
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
+                  {showBadge && (
+                    <span className="ml-1 px-1.5 py-0.5 text-xs font-medium bg-red-500 text-white rounded-full min-w-5 text-center">
+                      {pendingSubmissionsCount > 99 ? "99+" : pendingSubmissionsCount}
+                    </span>
+                  )}
                 </Link>
               );
             })}
