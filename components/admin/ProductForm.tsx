@@ -121,20 +121,6 @@ export function ProductForm({
             </div>
           </div>
 
-          {/* Descrição */}
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-              Descrição
-            </label>
-            <input
-              type="text"
-              value={produto.descricao || ""}
-              onChange={(e) => handleChange("descricao", e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
-              placeholder="Ex: Chip M3 Pro, 18GB RAM"
-            />
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Preço */}
             <div>

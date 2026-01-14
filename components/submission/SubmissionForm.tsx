@@ -53,11 +53,9 @@ export function SubmissionForm() {
     {
       _id: crypto.randomUUID(),
       productName: "",
-      productBrand: null,
       productCategory: null,
       productUrl: null,
       productPrice: null,
-      notes: null,
     },
   ]);
 
@@ -169,11 +167,9 @@ export function SubmissionForm() {
             ...data,
             products: validProducts.map((p) => ({
               productName: p.productName,
-              productBrand: p.productBrand,
               productCategory: p.productCategory,
               productUrl: p.productUrl,
               productPrice: p.productPrice,
-              notes: p.notes,
             })),
             images: images.map((img, idx) => ({
               url: img.url,

@@ -18,11 +18,9 @@ const optionalSafeUrl = safeUrl.optional().or(z.literal("")).nullable();
 // Schema do produto na submissão (usuário público)
 export const submissionProductSchema = z.object({
   productName: z.string().min(2, "Nome do produto é obrigatório"),
-  productBrand: z.string().optional().nullable(),
   productCategory: z.string().optional().nullable(),
   productUrl: optionalSafeUrl,
   productPrice: z.number().positive().optional().nullable(),
-  notes: z.string().max(500, "Máximo 500 caracteres").optional().nullable(),
 });
 
 // Schema do formulário público de submissão

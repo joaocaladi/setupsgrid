@@ -91,38 +91,23 @@ export function SubmissionProductForm({
             />
           </div>
 
-          {/* Marca e Categoria */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-                Marca
-              </label>
-              <input
-                type="text"
-                value={product.productBrand || ""}
-                onChange={(e) => updateField("productBrand", e.target.value)}
-                placeholder="Ex: Dell, Apple, Logitech"
-                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-                Categoria
-              </label>
-              <select
-                value={product.productCategory || ""}
-                onChange={(e) => updateField("productCategory", e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
-              >
-                <option value="">Selecione...</option>
-                {PRODUTO_CATEGORIAS.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
+          {/* Categoria */}
+          <div>
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
+              Categoria
+            </label>
+            <select
+              value={product.productCategory || ""}
+              onChange={(e) => updateField("productCategory", e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
+            >
+              <option value="">Selecione...</option>
+              {PRODUTO_CATEGORIAS.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Link e Preço */}
@@ -161,23 +146,6 @@ export function SubmissionProductForm({
             </div>
           </div>
 
-          {/* Observações */}
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-              Observações
-            </label>
-            <textarea
-              value={product.notes || ""}
-              onChange={(e) => updateField("notes", e.target.value)}
-              placeholder="Alguma informação adicional sobre o produto..."
-              rows={2}
-              maxLength={500}
-              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] resize-none"
-            />
-            <p className="mt-1 text-xs text-[var(--text-secondary)]">
-              {(product.notes || "").length}/500 caracteres
-            </p>
-          </div>
         </div>
       )}
     </div>

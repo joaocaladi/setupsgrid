@@ -25,7 +25,7 @@ export function ProductCard({ produto }: ProductCardProps) {
       </div>
 
       {/* Product info */}
-      <div className="flex-1 min-w-0 pr-32">
+      <div className="flex-1 min-w-0">
         {/* Category */}
         <span className="text-[11px] text-[var(--text-secondary)] uppercase tracking-wider">
           {produto.categoria}
@@ -35,13 +35,6 @@ export function ProductCard({ produto }: ProductCardProps) {
         <h4 className="text-[15px] font-semibold text-[var(--text-primary)] line-clamp-1 mt-0.5">
           {produto.nome}
         </h4>
-
-        {/* Description */}
-        {produto.descricao && (
-          <p className="text-[13px] text-[var(--text-secondary)] line-clamp-1 mt-0.5">
-            {produto.descricao}
-          </p>
-        )}
 
         {/* Price */}
         {produto.preco && (

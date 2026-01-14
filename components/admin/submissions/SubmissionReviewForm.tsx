@@ -241,19 +241,6 @@ function SortableProductItem({
             />
           </div>
 
-          {/* Descrição */}
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-              Descrição
-            </label>
-            <textarea
-              value={product.descricao || ""}
-              onChange={(e) => updateField("descricao", e.target.value || null)}
-              rows={2}
-              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background-secondary)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] text-[var(--text-primary)] resize-none"
-            />
-          </div>
-
           {/* Destaque */}
           <label className="flex items-center gap-2">
             <input
@@ -673,9 +660,7 @@ export function SubmissionReviewForm({
               {submission.products.map((p, i) => (
                 <li key={i}>
                   • {p.productName}
-                  {p.productBrand && ` (${p.productBrand})`}
                   {p.productPrice && ` - R$ ${p.productPrice.toFixed(2)}`}
-                  {p.notes && ` - "${p.notes}"`}
                 </li>
               ))}
             </ul>

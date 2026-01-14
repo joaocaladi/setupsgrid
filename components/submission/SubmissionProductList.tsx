@@ -111,11 +111,9 @@ export function SubmissionProductList({
     const newProduct: ProductWithId = {
       _id: crypto.randomUUID(),
       productName: "",
-      productBrand: null,
       productCategory: null,
       productUrl: null,
       productPrice: null,
-      notes: null,
     };
     onChange([...products, newProduct]);
   }, [products, onChange]);

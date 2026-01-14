@@ -78,20 +78,16 @@ export async function POST(request: NextRequest) {
             (
               p: {
                 productName: string;
-                productBrand?: string;
                 productCategory?: string;
                 productUrl?: string;
                 productPrice?: number;
-                notes?: string;
               },
               idx: number
             ) => ({
               productName: p.productName,
-              productBrand: p.productBrand || null,
               productCategory: p.productCategory || null,
               productUrl: p.productUrl || null,
               productPrice: p.productPrice || null,
-              notes: p.notes || null,
               position: idx,
             })
           ),
