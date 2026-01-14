@@ -193,6 +193,7 @@ export async function approveSubmission(
             loja: p.loja,
             destaque: p.destaque,
             ordem: idx,
+            imagemUrl: p.imagemUrl || null,
           })),
         },
       },

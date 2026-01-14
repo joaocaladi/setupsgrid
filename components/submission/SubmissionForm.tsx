@@ -56,6 +56,7 @@ export function SubmissionForm() {
       productCategory: null,
       productUrl: null,
       productPrice: null,
+      _extractedImage: null,
     },
   ]);
 
@@ -170,6 +171,7 @@ export function SubmissionForm() {
               productCategory: p.productCategory,
               productUrl: p.productUrl,
               productPrice: p.productPrice,
+              productImage: p._extractedImage || null,
             })),
             images: images.map((img, idx) => ({
               url: img.url,

@@ -24,6 +24,7 @@ import type { SubmissionProductData } from "@/lib/validations/submission";
 
 export interface SubmissionProductWithId extends SubmissionProductData {
   _id: string;
+  _extractedImage?: string | null;
 }
 
 type ProductWithId = SubmissionProductWithId;
@@ -114,6 +115,7 @@ export function SubmissionProductList({
       productCategory: null,
       productUrl: null,
       productPrice: null,
+      _extractedImage: null,
     };
     onChange([...products, newProduct]);
   }, [products, onChange]);

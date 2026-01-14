@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
                 productCategory?: string;
                 productUrl?: string;
                 productPrice?: number;
+                productImage?: string;
               },
               idx: number
             ) => ({
@@ -88,6 +89,7 @@ export async function POST(request: NextRequest) {
               productCategory: p.productCategory || null,
               productUrl: p.productUrl || null,
               productPrice: p.productPrice || null,
+              productImage: p.productImage || null,
               position: idx,
             })
           ),

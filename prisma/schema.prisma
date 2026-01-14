@@ -119,6 +119,7 @@ model SetupSubmissionProduct {
   productCategory String?
   productUrl      String?
   productPrice    Float?
+  productImage    String?
   notes           String?
   position        Int             @default(0)
   createdAt       DateTime        @default(now())

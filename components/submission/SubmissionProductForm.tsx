@@ -1,14 +1,16 @@
 "use client";
 
 import { ChevronDown, ChevronUp, Trash2, GripVertical } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { PRODUTO_CATEGORIAS } from "@/lib/validations";
 import type { SubmissionProductData } from "@/lib/validations/submission";
+import { ProductUrlExtractor } from "./ProductUrlExtractor";
+import type { ExtractedProduct } from "@/lib/scraper/types";
 
 interface SubmissionProductFormProps {
-  product: SubmissionProductData;
+  product: SubmissionProductData & { _extractedImage?: string | null };
   index: number;
-  onChange: (product: SubmissionProductData) => void;
+  onChange: (product: SubmissionProductData & { _extractedImage?: string | null }) => void;
   onRemove: () => void;
   canRemove: boolean;
   dragHandleProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -30,6 +32,19 @@ export function SubmissionProductForm({
   ) => {
     onChange({ ...product, [field]: value });
   };
+
+  const handleExtract = useCallback(
+    (data: ExtractedProduct) => {
+      onChange({
+        ...product,
+        productName: data.name || product.productName,
+        productPrice: data.priceValue ?? product.productPrice,
+        productUrl: data.originalUrl || product.productUrl,
+        _extractedImage: data.image,
+      });
+    },
+    [product, onChange]
+  );
 
   return (
     <div className="bg-[var(--background-secondary)] rounded-xl border border-[var(--border)] overflow-hidden">
@@ -77,6 +92,19 @@ export function SubmissionProductForm({
       {/* Campos */}
       {expanded && (
         <div className="p-4 space-y-4">
+          {/* Link para Compra com extração automática */}
+          <div>
+            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
+              Link para Compra
+            </label>
+            <ProductUrlExtractor
+              value={product.productUrl || ""}
+              onChange={(url) => updateField("productUrl", url)}
+              onExtract={handleExtract}
+              extractedImage={product._extractedImage}
+            />
+          </div>
+
           {/* Nome do produto */}
           <div>
             <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
@@ -91,38 +119,24 @@ export function SubmissionProductForm({
             />
           </div>
 
-          {/* Categoria */}
-          <div>
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-              Categoria
-            </label>
-            <select
-              value={product.productCategory || ""}
-              onChange={(e) => updateField("productCategory", e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
-            >
-              <option value="">Selecione...</option>
-              {PRODUTO_CATEGORIAS.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Link e Preço */}
+          {/* Categoria e Preço */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
-                Link para Compra
+                Categoria
               </label>
-              <input
-                type="url"
-                value={product.productUrl || ""}
-                onChange={(e) => updateField("productUrl", e.target.value)}
-                placeholder="https://..."
-                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
-              />
+              <select
+                value={product.productCategory || ""}
+                onChange={(e) => updateField("productCategory", e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-transparent text-[var(--text-primary)]"
+              >
+                <option value="">Selecione...</option>
+                {PRODUTO_CATEGORIAS.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
@@ -145,7 +159,6 @@ export function SubmissionProductForm({
               />
             </div>
           </div>
-
         </div>
       )}
     </div>

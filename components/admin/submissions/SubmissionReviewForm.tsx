@@ -284,6 +284,7 @@ export function SubmissionReviewForm({
       linkCompra: p.productUrl,
       loja: null,
       destaque: false,
+      imagemUrl: p.productImage || null,
     }))
   );
 
@@ -328,6 +329,7 @@ export function SubmissionReviewForm({
         linkCompra: null,
         loja: null,
         destaque: false,
+        imagemUrl: null,
       },
     ]);
   }, [products]);
@@ -386,6 +388,7 @@ export function SubmissionReviewForm({
         linkCompra: p.linkCompra,
         loja: p.loja,
         destaque: p.destaque,
+        imagemUrl: p.imagemUrl,
       })),
     });
 
@@ -656,11 +659,21 @@ export function SubmissionReviewForm({
             <p className="text-xs font-medium text-[var(--text-secondary)] mb-2">
               Produtos informados pelo usuário:
             </p>
-            <ul className="text-xs text-[var(--text-secondary)] space-y-1">
+            <ul className="text-xs text-[var(--text-secondary)] space-y-2">
               {submission.products.map((p, i) => (
-                <li key={i}>
-                  • {p.productName}
-                  {p.productPrice && ` - R$ ${p.productPrice.toFixed(2)}`}
+                <li key={i} className="flex items-center gap-2">
+                  {p.productImage && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={p.productImage}
+                      alt={p.productName}
+                      className="w-10 h-10 object-contain rounded bg-white"
+                    />
+                  )}
+                  <span>
+                    • {p.productName}
+                    {p.productPrice && ` - R$ ${p.productPrice.toFixed(2)}`}
+                  </span>
                 </li>
               ))}
             </ul>

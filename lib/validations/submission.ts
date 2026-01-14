@@ -46,6 +46,7 @@ export const reviewProductSchema = z.object({
   linkCompra: optionalSafeUrl,
   loja: z.string().optional().nullable(),
   destaque: z.boolean().default(false),
+  imagemUrl: z.string().optional().nullable(),
 });
 
 // Schema para revisão/aprovação admin
