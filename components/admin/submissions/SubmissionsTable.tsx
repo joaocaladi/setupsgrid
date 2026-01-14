@@ -3,10 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, Trash2, Loader2, Package, X } from "lucide-react";
-import { toast } from "sonner";
+import { Eye, Package } from "lucide-react";
 import { SubmissionStatusBadge } from "./SubmissionStatusBadge";
-import { deleteSubmission } from "@/app/admin/submissions/actions";
 import type { SubmissionWithRelations } from "@/types";
 
 interface SubmissionsTableProps {
@@ -16,8 +14,6 @@ interface SubmissionsTableProps {
 export function SubmissionsTable({ submissions }: SubmissionsTableProps) {
   const [filter, setFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
-  const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [showDeleteModal, setShowDeleteModal] = useState<string | null>(null);
 
   const filteredSubmissions = submissions.filter((sub) => {
     const matchesFilter = filter === "all" || sub.status === filter;
@@ -35,23 +31,6 @@ export function SubmissionsTable({ submissions }: SubmissionsTableProps) {
     approved: submissions.filter((s) => s.status === "approved").length,
     rejected: submissions.filter((s) => s.status === "rejected").length,
   };
-
-  async function handleDelete(id: string) {
-    setDeletingId(id);
-    try {
-      const result = await deleteSubmission(id);
-      if (result.success) {
-        toast.success("Submissão excluída!");
-        setShowDeleteModal(null);
-      } else {
-        toast.error(result.error || "Erro ao excluir");
-      }
-    } catch {
-      toast.error("Erro ao excluir submissão");
-    } finally {
-      setDeletingId(null);
-    }
-  }
 
   return (
     <div className="space-y-4">
@@ -211,13 +190,6 @@ export function SubmissionsTable({ submissions }: SubmissionsTableProps) {
                         >
                           <Eye className="h-4 w-4" />
                         </Link>
-                        <button
-                          onClick={() => setShowDeleteModal(submission.id)}
-                          className="p-2 text-[var(--text-secondary)] hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
-                          title="Excluir"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
                       </div>
                     </td>
                   </tr>
@@ -227,57 +199,6 @@ export function SubmissionsTable({ submissions }: SubmissionsTableProps) {
           </div>
         )}
       </div>
-
-      {/* Modal de confirmação de exclusão */}
-      {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setShowDeleteModal(null)}
-          />
-          <div className="relative bg-[var(--background-secondary)] rounded-2xl p-6 max-w-md w-full mx-4 shadow-xl border border-[var(--border)]">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-[var(--text-primary)]">
-                Excluir Submissão
-              </h3>
-              <button
-                onClick={() => setShowDeleteModal(null)}
-                className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <p className="text-[var(--text-secondary)] mb-6">
-              Tem certeza que deseja excluir esta submissão? Esta ação não pode
-              ser desfeita.
-            </p>
-
-            <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => setShowDeleteModal(null)}
-                className="px-4 py-2 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--background)] rounded-lg transition-colors"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={() => handleDelete(showDeleteModal)}
-                disabled={deletingId === showDeleteModal}
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors disabled:opacity-50"
-              >
-                {deletingId === showDeleteModal ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Excluindo...
-                  </>
-                ) : (
-                  "Excluir"
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
