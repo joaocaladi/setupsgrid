@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import { Plus } from "lucide-react";
 import {
   DndContext,
@@ -80,11 +80,8 @@ export function SubmissionProductList({
   products,
   onChange,
 }: SubmissionProductListProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // SSR check - initialized to true only on client
+  const [mounted] = useState(() => typeof window !== "undefined");
 
   const sensors = useSensors(
     useSensor(PointerSensor),

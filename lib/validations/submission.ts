@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { PRODUTO_CATEGORIAS } from "../validations";
 
 // Validador de URL segura (bloqueia javascript:, data:, etc.)
 const safeUrl = z.string().url().refine(

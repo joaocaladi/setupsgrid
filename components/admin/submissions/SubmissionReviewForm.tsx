@@ -685,7 +685,7 @@ export function SubmissionReviewForm({
         {/* Editable Products */}
         {isProcessed ? (
           <div className="space-y-3">
-            {products.map((product, index) => (
+            {products.map((product) => (
               <div
                 key={product._id}
                 className="p-4 rounded-xl bg-[var(--background)] border border-[var(--border)]"
