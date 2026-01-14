@@ -25,7 +25,7 @@ export function ProductCard({ produto }: ProductCardProps) {
       </div>
 
       {/* Product info */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 pr-32">
         {/* Category */}
         <span className="text-[11px] text-[var(--text-secondary)] uppercase tracking-wider">
           {produto.categoria}
