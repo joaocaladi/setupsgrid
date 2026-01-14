@@ -204,7 +204,7 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
               href="/enviar-setup"
               className="px-3 py-1.5 rounded-full bg-[#0071e3] hover:bg-[#0077ED] text-white text-xs font-medium transition-colors"
             >
-              Enviar Setup
+              Envie seu Setup
             </Link>
 
             {/* Theme toggle */}
