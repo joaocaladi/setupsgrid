@@ -183,6 +183,7 @@ export async function extractProductData(url: string): Promise<ExtractionResult>
       storeName,
       storeReliability,
       originalUrl: cleanedUrl,
+      priceCapturedAt: mergedData.priceValue ? new Date().toISOString() : null,
     };
 
     return {

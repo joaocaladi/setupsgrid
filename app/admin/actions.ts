@@ -78,6 +78,7 @@ export async function createSetup(data: SetupFormData) {
           create: produtos.map((produto, index) => ({
             ...produto,
             ordem: index,
+            precoCapturedAt: produto.preco ? new Date() : null,
           })),
         },
       },
@@ -124,6 +125,7 @@ export async function updateSetup(id: string, data: SetupFormData) {
           create: produtos.map((produto, index) => ({
             ...produto,
             ordem: index,
+            precoCapturedAt: produto.preco ? new Date() : null,
           })),
         },
       },

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FolderOpen, LogOut, Sun, Moon, Inbox } from "lucide-react";
+import { LayoutDashboard, FolderOpen, LogOut, Sun, Moon, Inbox, Link2 } from "lucide-react";
 import { logout } from "@/app/admin/actions";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -22,6 +22,11 @@ const navItems = [
     href: "/admin/submissions",
     icon: Inbox,
     showBadge: true,
+  },
+  {
+    label: "Links",
+    href: "/admin/links",
+    icon: Link2,
   },
 ];
 

@@ -30,6 +30,7 @@ export const produtoSchema = z.object({
   hotspotX: z.number().min(0).max(100).optional().nullable(),
   hotspotY: z.number().min(0).max(100).optional().nullable(),
   hotspotImagem: z.number().int().min(0).optional().nullable(),
+  precoCapturedAt: z.date().optional().nullable(),
 });
 
 export const setupSchema = z.object({

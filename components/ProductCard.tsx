@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { formatPrice } from "@/lib/utils";
+import { formatPriceWithDate } from "@/lib/utils";
 import type { Produto } from "@/types";
 
 interface ProductCardProps {
@@ -7,8 +7,10 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ produto }: ProductCardProps) {
+  const isBrokenLink = produto.linkStatus === "broken";
+
   return (
-    <div className="relative flex gap-5 p-5 bg-[var(--background-secondary)] rounded-2xl transition-all duration-300 hover:bg-[var(--background-tertiary)]">
+    <div className="relative flex gap-5 p-5 pr-36 bg-[var(--background-secondary)] rounded-2xl transition-all duration-300 hover:bg-[var(--background-tertiary)]">
       {/* Product image */}
       <div className="relative w-40 h-40 rounded-xl flex-shrink-0 bg-[var(--background)] flex items-center justify-center overflow-hidden">
         {produto.imagemUrl ? (
@@ -36,24 +38,35 @@ export function ProductCard({ produto }: ProductCardProps) {
           {produto.nome}
         </h4>
 
-        {/* Price */}
+        {/* Price with date */}
         {produto.preco && (
           <span className="text-[15px] font-semibold text-[var(--text-primary)] mt-1 block">
-            {formatPrice(produto.preco, produto.moeda)}
+            {formatPriceWithDate(
+              produto.preco,
+              produto.precoCapturedAt,
+              produto.moeda
+            )}
           </span>
         )}
       </div>
 
       {/* Botão - meio direito */}
       {produto.linkCompra && (
-        <a
-          href={produto.linkCompra}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute right-5 top-1/2 -translate-y-1/2 inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-white bg-[#34C759] rounded-lg hover:bg-[#2DB84E] transition-colors"
-        >
-          Ir para loja &gt;
-        </a>
+        <div className="absolute right-5 top-1/2 -translate-y-1/2 flex flex-col items-end gap-1">
+          <a
+            href={produto.linkCompra}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-3 py-1.5 text-[13px] font-medium text-white bg-[#34C759] rounded-lg hover:bg-[#2DB84E] transition-colors"
+          >
+            Ir para loja &gt;
+          </a>
+          {isBrokenLink && (
+            <span className="text-yellow-500 text-[11px]">
+              (pode estar indisponível)
+            </span>
+          )}
+        </div>
       )}
 
       {/* Vendido por - bottom right */}

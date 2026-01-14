@@ -53,6 +53,12 @@ model Categoria {
   grupo     GrupoCategoria? @relation(fields: [grupoId], references: [id])
 }
 
+enum LinkStatus {
+  active
+  broken
+  unknown
+}
+
 model Produto {
   id            String   @id @default(cuid())
   nome          String
@@ -72,6 +78,36 @@ model Produto {
   updatedAt     DateTime @updatedAt
   setupId       String
   setup         Setup    @relation(fields: [setupId], references: [id], onDelete: Cascade)
+
+  // Preço histórico
+  precoCapturedAt DateTime?
+
+  // Verificação de links
+  linkStatus        LinkStatus @default(unknown)
+  linkLastCheckedAt DateTime?
+  linkCheckAttempts Int        @default(0)
+  linkBrokenAt      DateTime?
+
+  // Relação com histórico de verificações
+  linkChecks ProductLinkCheck[]
+
+  @@index([linkStatus])
+  @@index([linkLastCheckedAt])
+}
+
+model ProductLinkCheck {
+  id         String     @id @default(cuid())
+  produtoId  String
+  produto    Produto    @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+  url        String
+  status     LinkStatus
+  httpStatus Int?
+  responseMs Int?
+  errorType  String?
+  checkedAt  DateTime   @default(now())
+
+  @@index([produtoId])
+  @@index([checkedAt])
 }
 
 // ============================================

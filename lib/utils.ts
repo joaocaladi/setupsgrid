@@ -31,3 +31,27 @@ export function slugify(text: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 }
+
+// Formata preço com data de captura
+export function formatPriceWithDate(
+  price: number | null | undefined,
+  capturedAt: Date | string | null | undefined,
+  currency = "BRL"
+): string {
+  if (price === null || price === undefined) return "";
+
+  const priceStr = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency,
+  }).format(price);
+
+  if (!capturedAt) return priceStr;
+
+  const date = new Date(capturedAt);
+  const month = date
+    .toLocaleDateString("pt-BR", { month: "short" })
+    .replace(".", "");
+  const year = date.getFullYear();
+
+  return `${priceStr} (em ${month}/${year})`;
+}

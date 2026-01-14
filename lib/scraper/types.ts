@@ -7,6 +7,7 @@ export interface ExtractedProduct {
   storeName: string;
   storeReliability: "high" | "medium" | "low" | "unknown";
   originalUrl: string;
+  priceCapturedAt: string | null;
 }
 
 export interface ExtractionResult {
