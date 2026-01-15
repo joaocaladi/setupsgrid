@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { X, CheckCircle, XCircle, Clock } from "lucide-react";
 import { getProductLinkHistory } from "@/app/admin/links/actions";
 import type { LinkStatus } from "@prisma/client";
@@ -28,30 +28,25 @@ export function LinkCheckHistoryModal({
   onClose,
 }: LinkCheckHistoryModalProps) {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const fetchHistory = useCallback(async () => {
+    if (!productId) return;
+
+    setLoading(true);
+    try {
+      const data = await getProductLinkHistory(productId);
+      setHistory(data);
+    } finally {
+      setLoading(false);
+    }
+  }, [productId]);
 
   useEffect(() => {
-    if (!isOpen || !productId) return;
-
-    let cancelled = false;
-    setLoading(true);
-
-    getProductLinkHistory(productId)
-      .then((data) => {
-        if (!cancelled) {
-          setHistory(data);
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [isOpen, productId]);
+    if (isOpen) {
+      fetchHistory();
+    }
+  }, [isOpen, fetchHistory]);
 
   if (!isOpen) return null;
 
