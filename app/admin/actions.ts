@@ -11,6 +11,7 @@ import {
 } from "@/lib/auth";
 import { setupSchema, type SetupFormData } from "@/lib/validations";
 import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
+import { transformToAffiliateUrl } from "@/lib/affiliate/transformer";
 
 // ============================================
 // AUTH ACTIONS
@@ -68,6 +69,35 @@ export async function createSetup(data: SetupFormData) {
   const { categoriaIds, produtos, ...setupData } = parsed.data;
 
   try {
+    // Transformar links de afiliado para cada produto
+    const produtosComAfiliado = await Promise.all(
+      produtos.map(async (produto, index) => {
+        let linkData = {
+          linkCompra: produto.linkCompra,
+          linkCompraOriginal: null as string | null,
+          affiliateStoreKey: null as string | null,
+          hasAffiliate: false,
+        };
+
+        if (produto.linkCompra) {
+          const result = await transformToAffiliateUrl(produto.linkCompra);
+          linkData = {
+            linkCompra: result.transformedUrl,
+            linkCompraOriginal: produto.linkCompra,
+            affiliateStoreKey: result.storeKey,
+            hasAffiliate: result.wasTransformed,
+          };
+        }
+
+        return {
+          ...produto,
+          ...linkData,
+          ordem: index,
+          precoCapturedAt: produto.preco ? new Date() : null,
+        };
+      })
+    );
+
     const setup = await prisma.setup.create({
       data: {
         ...setupData,
@@ -75,11 +105,7 @@ export async function createSetup(data: SetupFormData) {
           connect: categoriaIds.map((id) => ({ id })),
         },
         produtos: {
-          create: produtos.map((produto, index) => ({
-            ...produto,
-            ordem: index,
-            precoCapturedAt: produto.preco ? new Date() : null,
-          })),
+          create: produtosComAfiliado,
         },
       },
     });
@@ -108,6 +134,35 @@ export async function updateSetup(id: string, data: SetupFormData) {
   const { categoriaIds, produtos, ...setupData } = parsed.data;
 
   try {
+    // Transformar links de afiliado para cada produto
+    const produtosComAfiliado = await Promise.all(
+      produtos.map(async (produto, index) => {
+        let linkData = {
+          linkCompra: produto.linkCompra,
+          linkCompraOriginal: null as string | null,
+          affiliateStoreKey: null as string | null,
+          hasAffiliate: false,
+        };
+
+        if (produto.linkCompra) {
+          const result = await transformToAffiliateUrl(produto.linkCompra);
+          linkData = {
+            linkCompra: result.transformedUrl,
+            linkCompraOriginal: produto.linkCompra,
+            affiliateStoreKey: result.storeKey,
+            hasAffiliate: result.wasTransformed,
+          };
+        }
+
+        return {
+          ...produto,
+          ...linkData,
+          ordem: index,
+          precoCapturedAt: produto.preco ? new Date() : null,
+        };
+      })
+    );
+
     // Deletar produtos existentes
     await prisma.produto.deleteMany({
       where: { setupId: id },
@@ -119,14 +174,10 @@ export async function updateSetup(id: string, data: SetupFormData) {
       data: {
         ...setupData,
         categorias: {
-          set: categoriaIds.map((id) => ({ id })),
+          set: categoriaIds.map((catId) => ({ id: catId })),
         },
         produtos: {
-          create: produtos.map((produto, index) => ({
-            ...produto,
-            ordem: index,
-            precoCapturedAt: produto.preco ? new Date() : null,
-          })),
+          create: produtosComAfiliado,
         },
       },
     });

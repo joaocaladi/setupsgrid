@@ -59,6 +59,38 @@ enum LinkStatus {
   unknown
 }
 
+enum AffiliateType {
+  parameter // Adiciona parâmetro na URL (ex: ?tag=gridiz-20)
+  redirect  // URL passa por redirect (ex: lomadee, awin)
+  replace   // Substitui parte da URL
+}
+
+model AffiliateConfig {
+  id               String        @id @default(cuid())
+  storeKey         String        @unique
+  storeName        String
+  domains          String[]
+
+  affiliateType    AffiliateType
+  affiliateCode    String?
+  affiliateParam   String?
+  redirectTemplate String?
+
+  isActive         Boolean       @default(false)
+
+  programName      String?
+  programUrl       String?
+  commissionInfo   String?
+  notes            String?
+
+  productCount     Int           @default(0)
+
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([isActive])
+}
+
 model Produto {
   id            String   @id @default(cuid())
   nome          String
@@ -82,6 +114,11 @@ model Produto {
   // Preço histórico
   precoCapturedAt DateTime?
 
+  // Campos de afiliado
+  linkCompraOriginal  String?
+  affiliateStoreKey   String?
+  hasAffiliate        Boolean  @default(false)
+
   // Verificação de links
   linkStatus        LinkStatus @default(unknown)
   linkLastCheckedAt DateTime?
@@ -93,6 +130,8 @@ model Produto {
 
   @@index([linkStatus])
   @@index([linkLastCheckedAt])
+  @@index([affiliateStoreKey])
+  @@index([hasAffiliate])
 }
 
 model ProductLinkCheck {
