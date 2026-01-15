@@ -8,6 +8,7 @@ import {
   RefreshCw,
   Search,
   Clock,
+  Pencil,
 } from "lucide-react";
 import { LinkStatusBadge } from "./LinkStatusBadge";
 import { checkProductLink } from "@/app/admin/links/actions";
@@ -214,6 +215,15 @@ export function LinksTable({
                         >
                           <Clock className="h-4 w-4" />
                         </button>
+                        <Link
+                          href={`/admin/setups/${product.setup.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--background)] rounded-lg transition-colors"
+                          title="Editar setup"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Link>
                       </div>
                     </td>
                   </tr>
