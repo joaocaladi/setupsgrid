@@ -1,0 +1,212 @@
+"use client";
+
+import { useState } from "react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { Plus } from "lucide-react";
+import { UserProductForm } from "./UserProductForm";
+import type { ProdutoFormData } from "@/lib/validations";
+
+interface UserProductListProps {
+  produtos: ProdutoFormData[];
+  onChange: (produtos: ProdutoFormData[]) => void;
+  imagemPrincipal?: string;
+  imagens?: string[];
+}
+
+interface SortableItemProps {
+  id: string;
+  produto: ProdutoFormData;
+  index: number;
+  isExpanded: boolean;
+  onToggle: () => void;
+  onChange: (data: ProdutoFormData) => void;
+  onRemove: () => void;
+  imagemPrincipal?: string;
+  imagens?: string[];
+}
+
+function SortableItem({
+  id,
+  produto,
+  index,
+  isExpanded,
+  onToggle,
+  onChange,
+  onRemove,
+  imagemPrincipal,
+  imagens,
+}: SortableItemProps) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style}>
+      <UserProductForm
+        produto={produto}
+        index={index}
+        isExpanded={isExpanded}
+        onToggle={onToggle}
+        onChange={onChange}
+        onRemove={onRemove}
+        dragHandleProps={{ ...attributes, ...listeners }}
+        imagemPrincipal={imagemPrincipal}
+        imagens={imagens}
+      />
+    </div>
+  );
+}
+
+export function UserProductList({
+  produtos,
+  onChange,
+  imagemPrincipal,
+  imagens,
+}: UserProductListProps) {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(
+    produtos.length > 0 ? 0 : null
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = produtos.findIndex(
+        (_, i) => `produto-${i}` === active.id
+      );
+      const newIndex = produtos.findIndex((_, i) => `produto-${i}` === over.id);
+      onChange(arrayMove(produtos, oldIndex, newIndex));
+    }
+  }
+
+  function handleAdd() {
+    const novoProduto: ProdutoFormData = {
+      nome: "",
+      descricao: null,
+      categoria: "",
+      preco: null,
+      moeda: "BRL",
+      linkCompra: null,
+      loja: null,
+      destaque: false,
+      ordem: produtos.length,
+    };
+    onChange([...produtos, novoProduto]);
+    setExpandedIndex(produtos.length);
+  }
+
+  function handleChange(index: number, data: ProdutoFormData) {
+    const updated = [...produtos];
+    updated[index] = data;
+    onChange(updated);
+  }
+
+  function handleRemove(index: number) {
+    const updated = produtos.filter((_, i) => i !== index);
+    onChange(updated);
+    if (expandedIndex === index) {
+      setExpandedIndex(null);
+    } else if (expandedIndex !== null && expandedIndex > index) {
+      setExpandedIndex(expandedIndex - 1);
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-[var(--text-primary)]">
+            Produtos
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">
+            Adicione os produtos do seu setup com links de afiliado
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={handleAdd}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-[#0071e3] hover:bg-[#0071e3]/10 rounded-lg transition-colors"
+        >
+          <Plus className="h-4 w-4" />
+          Adicionar
+        </button>
+      </div>
+
+      {produtos.length === 0 ? (
+        <div className="bg-[var(--background)] rounded-xl p-8 text-center border border-[var(--border)]">
+          <p className="text-[var(--text-secondary)] mb-3">
+            Nenhum produto adicionado ainda.
+          </p>
+          <p className="text-sm text-[var(--text-secondary)] mb-4">
+            Cole links de afiliado e preenchemos automaticamente os dados do produto.
+          </p>
+          <button
+            type="button"
+            onClick={handleAdd}
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-[#0071e3] hover:bg-[#0077ED] rounded-lg transition-colors"
+          >
+            <Plus className="h-4 w-4" />
+            Adicionar primeiro produto
+          </button>
+        </div>
+      ) : (
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={produtos.map((_, i) => `produto-${i}`)}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className="space-y-3">
+              {produtos.map((produto, index) => (
+                <SortableItem
+                  key={`produto-${index}`}
+                  id={`produto-${index}`}
+                  produto={produto}
+                  index={index}
+                  isExpanded={expandedIndex === index}
+                  onToggle={() =>
+                    setExpandedIndex(expandedIndex === index ? null : index)
+                  }
+                  onChange={(data) => handleChange(index, data)}
+                  onRemove={() => handleRemove(index)}
+                  imagemPrincipal={imagemPrincipal}
+                  imagens={imagens}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
+      )}
+    </div>
+  );
+}

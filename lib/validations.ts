@@ -48,7 +48,13 @@ export const setupSchema = z.object({
   produtos: z.array(produtoSchema).default([]),
 });
 
+// Schema for user-created setups (without admin-only fields)
+export const userSetupSchema = setupSchema.omit({ destaque: true }).extend({
+  status: z.enum(["draft", "published", "archived"]).default("draft"),
+});
+
 export type SetupFormData = z.input<typeof setupSchema>;
+export type UserSetupFormData = z.input<typeof userSetupSchema>;
 export type ProdutoFormData = z.input<typeof produtoSchema>;
 
 // Categorias de produtos disponíveis

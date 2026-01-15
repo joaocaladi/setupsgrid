@@ -7,6 +7,7 @@ import type {
   SetupSubmissionProduct,
   ProductLinkCheck,
   LinkStatus,
+  Profile,
 } from "@prisma/client";
 
 // Types com relações incluídas
@@ -28,6 +29,15 @@ export type ProdutoWithLinkChecks = Produto & {
   linkChecks: ProductLinkCheck[];
 };
 
+// Profile types
+export type ProfileWithSetups = Profile & {
+  setups: SetupWithRelations[];
+};
+
+export type SetupWithUser = SetupWithRelations & {
+  user: Profile | null;
+};
+
 // Re-export dos tipos base do Prisma
 export type {
   Setup,
@@ -38,4 +48,5 @@ export type {
   SetupSubmissionProduct,
   ProductLinkCheck,
   LinkStatus,
+  Profile,
 };

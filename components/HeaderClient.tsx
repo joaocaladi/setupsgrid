@@ -6,6 +6,8 @@ import { Moon, Sun, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
 import { SearchModal } from "./SearchModal";
+import { UserMenu } from "./auth/UserMenu";
+import type { Profile } from "@prisma/client";
 
 interface Categoria {
   id: string;
@@ -26,9 +28,10 @@ interface GrupoCategoria {
 interface HeaderClientProps {
   categoriaAtiva?: string;
   grupos?: GrupoCategoria[];
+  profile?: Profile | null;
 }
 
-export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps) {
+export function HeaderClient({ categoriaAtiva, grupos = [], profile = null }: HeaderClientProps) {
   const { theme, toggleTheme } = useTheme();
   const [activeGrupo, setActiveGrupo] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -240,6 +243,9 @@ export function HeaderClient({ categoriaAtiva, grupos = [] }: HeaderClientProps)
                 <path d="m21 21-4.3-4.3" />
               </svg>
             </button>
+
+            {/* User Menu */}
+            <UserMenu profile={profile} />
           </div>
         </nav>
       </div>

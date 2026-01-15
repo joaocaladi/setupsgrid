@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components";
+import { AuthProvider } from "@/components/auth";
 import "./globals.css";
 
 const nunitoSans = Nunito_Sans({
@@ -40,7 +41,9 @@ export default function RootLayout({
         />
       </head>
       <body className={nunitoSans.variable}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -8,6 +8,36 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// ============================================
+// USER PROFILES
+// ============================================
+
+model Profile {
+  id             String   @id @default(cuid())
+  supabaseUserId String   @unique
+  username       String   @unique
+  displayName    String?
+  bio            String?
+  avatarUrl      String?
+  websiteUrl     String?
+  instagramUrl   String?
+  twitterUrl     String?
+  youtubeUrl     String?
+  tiktokUrl      String?
+  isPublic       Boolean  @default(true)
+  isVerified     Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  setups         Setup[]
+
+  @@index([username])
+  @@index([supabaseUserId])
+}
+
+// ============================================
+// SETUPS
+// ============================================
+
 model Setup {
   id            String           @id @default(cuid())
   titulo        String
@@ -21,11 +51,20 @@ model Setup {
   fonteUrl      String?
   destaque      Boolean          @default(false)
   visualizacoes Int              @default(0)
+  status        SetupStatus      @default(published)
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
   produtos      Produto[]
   categorias    Categoria[]      @relation("CategoriaToSetup")
   submission    SetupSubmission?
+
+  // User relation (optional for backwards compatibility with admin-created setups)
+  userId String?
+  user   Profile? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+  @@index([userId, status])
 }
 
 model GrupoCategoria {
@@ -57,6 +96,12 @@ enum LinkStatus {
   active
   broken
   unknown
+}
+
+enum SetupStatus {
+  draft
+  published
+  archived
 }
 
 enum AffiliateType {

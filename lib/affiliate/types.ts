@@ -1,4 +1,4 @@
-import type { AffiliateConfig as PrismaAffiliateConfig, AffiliateType } from "@prisma/client";
+import type { AffiliateConfig as PrismaAffiliateConfig } from "@prisma/client";
 
 export type { AffiliateType } from "@prisma/client";
 
